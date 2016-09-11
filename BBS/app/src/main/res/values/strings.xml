@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">贴吧</string>
+    <string name="name">name</string>
+    <string name="sendTime">sendTime</string>
+    <string name="answerTimes">answerTimes</string>
+    <string name="mainTitle">title</string>
+    <string name="mainName">贴吧</string>
+</resources>
