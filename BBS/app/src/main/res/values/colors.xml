@@ -7,5 +7,9 @@
     <color name="gray_d">#dddddd</color>
     <color name="title_blue">#31A4F0</color>
     <color name="little_green">#2BD56F</color>
+    <color name="left_bg">#4474BB</color>
+
+    <color name="btn_focus">#4474BB</color>
+    <color name="btn_normal">#31A4F0</color>
 
 </resources>
