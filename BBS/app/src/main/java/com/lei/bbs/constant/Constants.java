@@ -5,9 +5,8 @@ package com.lei.bbs.constant;
  */
 
 public class Constants {
-    public static String base_url="http://192.168.1.100/";
-    public static String login_url=base_url+"";
-    public static String register_url=base_url+"register.php";
+    public static String base_url="http://192.168.1.104/bbsServer/";
+
 
 
 

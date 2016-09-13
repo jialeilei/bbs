@@ -12,18 +12,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.lei.bbs.R;
+import com.lei.bbs.bean.Response;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
-import com.lei.bbs.retrofit.RetrofitUtil;
 import com.lei.bbs.retrofit.StarHomeService;
+import com.lei.bbs.util.MyToast;
 
 import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+    private String TAG="LoginActivity";
     private Button btnToLogin;
     private TextView tvRegister;
     private EditText edEmail,edPassword;
@@ -78,7 +79,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void gotoLogin(String email,String password){
+        StarHomeService service = HttpHelper.createHubService(Constants.base_url);
+        HashMap<String,String> params = new HashMap<>();
+        params.put("name",email);
+        params.put("pwd", password);
+        Call<Response>  login = service.postLogin(params);
+        login.enqueue(new Callback<Response>() {
+            @Override
+            public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                Log.i(TAG, "onResponse: "+response.body().getStatus());
+                if (response.body().getStatus() != null){
+                    int result = Integer.parseInt(response.body().getStatus());
+                    switch (result){
+                        case 1:
+                            MyToast.showShort(LoginActivity.this,"login success");
+                            break;
+                        case 2:
+                            
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
 
+            @Override
+            public void onFailure(Call<Response> call, Throwable t) {
+                Log.i(TAG, "onFailure: ");
+            }
+        });
+        
     }
 
 }
