@@ -57,7 +57,7 @@
 
 
                 <EditText
-                    android:id="@+id/email_address"
+                    android:id="@+id/edEmail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -75,7 +75,7 @@
                 android:orientation="horizontal" >
 
                 <EditText
-                    android:id="@+id/pass_input"
+                    android:id="@+id/edPassword"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

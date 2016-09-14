@@ -5,7 +5,10 @@ package com.lei.bbs.constant;
  */
 
 public class Constants {
+
     public static String base_url="http://192.168.1.104/bbsServer/";
+
+    public static boolean onLine = false;
 
 
 

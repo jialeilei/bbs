@@ -17,9 +17,7 @@ import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
 import com.lei.bbs.retrofit.StarHomeService;
 import com.lei.bbs.util.MyToast;
-
 import java.util.HashMap;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -58,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnLogin:
-                if (edPassword.getText().toString().equals("")||edEmail.getText().toString().equals("")){
+                if (edPassword.getText().toString().equals("") || edEmail.getText().toString().equals("")){
                     Toast.makeText(this,"用户名或密码不能为空",Toast.LENGTH_LONG).show();
                 }else {
                     gotoLogin(edEmail.getText().toString(),edPassword.getText().toString());
@@ -93,9 +91,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     switch (result){
                         case 1:
                             MyToast.showShort(LoginActivity.this,"login success");
+                            Constants.onLine = true;
+                            LoginActivity.this.finish();
                             break;
                         case 2:
-                            
+
                             break;
                         default:
                             break;

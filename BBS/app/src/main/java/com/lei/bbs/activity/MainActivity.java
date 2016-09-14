@@ -14,6 +14,8 @@ import android.widget.ListView;
 import com.lei.bbs.R;
 import com.lei.bbs.adapter.MainAdapter;
 import com.lei.bbs.bean.BBS;
+import com.lei.bbs.constant.Constants;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //list
     private List<BBS> bbsList = new ArrayList<BBS>();
     //view
-    private Button btnLogin;
+    private Button btnToLogin;
     private ImageView imgSetting;
     private ListView lvMain;
     private DrawerLayout drawerLayout;
@@ -47,27 +49,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         imgSetting = (ImageView) findViewById(R.id.imgSetting);
         imgSetting.setOnClickListener(this);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnLogin.setOnClickListener(this);
+        btnToLogin = (Button) findViewById(R.id.btnLogin);
+        btnToLogin.setOnClickListener(this);
         lvMain = (ListView) findViewById(R.id.lvMain);
         mainAdapter = new MainAdapter(this,bbsList);
         lvMain.setAdapter(mainAdapter);
         lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this,BbsDetailActivity.class);
+                Intent intent = new Intent(MainActivity.this, BbsDetailActivity.class);
                 startActivity(intent);
             }
         });
+        showToLoginActivity();
     }
 
     private void addData(){
-        bbsList.add(new BBS("西门吹雪","一小时前",5,"里约奥运的奇葩","点击付款if你，分地方尽快发放红包。"));
-        bbsList.add(new BBS("西门吹雪","一小时前",5,"里约奥运的奇葩","点击付款if你，分地方尽快发放红包。"));
-        bbsList.add(new BBS("西门吹雪","一小时前",5,"里约奥运的奇葩","点击付款if你，分地方尽快发放红包。"));
-        bbsList.add(new BBS("西门吹雪","一小时前",5,"里约奥运的奇葩","点击付款if你，分地方尽快发放红包。"));
-        bbsList.add(new BBS("西门吹雪","一小时前",5,"里约奥运的奇葩","点击付款if你，分地方尽快发放红包。"));
-        bbsList.add(new BBS("西门吹雪","一小时前",5,"里约奥运的奇葩","点击付款if你，分地方尽快发放红包。"));
+        bbsList.add(new BBS("西门吹雪","一小时前", 5,"里约奥运的奇葩","点击付款if你，分地方尽快发放红包。"));
+        bbsList.add(new BBS("西门吹雪","一小时前", 5, "里约奥运的奇葩", "点击付款if你，分地方尽快发放红包。"));
+        bbsList.add(new BBS("西门吹雪","一小时前", 5,"里约奥运的奇葩","点击付款if你，分地方尽快发放红包。"));
+        bbsList.add(new BBS("西门吹雪","一小时前", 5,"里约奥运的奇葩","点击付款if你，分地方尽快发放红包。"));
+        bbsList.add(new BBS("西门吹雪","一小时前", 5, "里约奥运的奇葩", "点击付款if你，分地方尽快发放红包。"));
+        bbsList.add(new BBS("西门吹雪","一小时前", 5, "里约奥运的奇葩", "点击付款if你，分地方尽快发放红包。"));
     }
 
     @Override
@@ -88,4 +91,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private void showToLoginActivity(){
+        if (Constants.onLine){
+            btnToLogin.setVisibility(View.GONE);
+        }else {
+            btnToLogin.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        showToLoginActivity();
+    }
 }
