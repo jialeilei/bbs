@@ -3,19 +3,21 @@ package com.lei.bbs.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.lei.bbs.R;
 import com.lei.bbs.bean.Response;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
 import com.lei.bbs.retrofit.StarHomeService;
+import com.lei.bbs.util.BbsApplication;
+import com.lei.bbs.util.MyLog;
 import com.lei.bbs.util.MyToast;
 import java.util.HashMap;
 import retrofit2.Call;
@@ -27,6 +29,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView tvRegister;
     private EditText edEmail,edPassword;
     private ImageView imgLeft;
+    private CheckBox cbRemember;
+    private BbsApplication mApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         imgLeft.setOnClickListener(this);
         edEmail = (EditText) findViewById(R.id.edEmail);
         edPassword = (EditText) findViewById(R.id.edPassword);
+        cbRemember = (CheckBox) findViewById(R.id.cbRemember);
+
+
+
+
+        Pair<String ,String> loginInfo = mApp.loadLoginInfo();
+        if (!loginInfo.first.equals("") && !loginInfo.second.equals("")){
+            edEmail.setText(loginInfo.first);
+            edPassword.setText(loginInfo.second);
+            cbRemember.setChecked(true);
+        }
 
     }
 
@@ -57,8 +72,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.btnLogin:
                 if (edPassword.getText().toString().equals("") || edEmail.getText().toString().equals("")){
-                    Toast.makeText(this,"用户名或密码不能为空",Toast.LENGTH_LONG).show();
+                    MyToast.showLong(this,"用户名或密码不能为空");
                 }else {
+                    if (cbRemember.isChecked()) {
+                        mApp.saveLoginInfo(edEmail.getText().toString(),edPassword.getText().toString());
+                    }
                     gotoLogin(edEmail.getText().toString(),edPassword.getText().toString());
                 }
 
@@ -85,7 +103,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login.enqueue(new Callback<Response>() {
             @Override
             public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
-                Log.i(TAG, "onResponse: "+response.body().getStatus());
+
+                MyLog.i(TAG, "onResponse: "+response.body().getStatus());
                 if (response.body().getStatus() != null){
                     int result = Integer.parseInt(response.body().getStatus());
                     switch (result){
@@ -105,7 +124,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFailure(Call<Response> call, Throwable t) {
-                Log.i(TAG, "onFailure: ");
+
+                MyLog.i(TAG, "onFailure: ");
             }
         });
         

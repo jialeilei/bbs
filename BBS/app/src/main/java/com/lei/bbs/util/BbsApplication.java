@@ -9,29 +9,44 @@ import android.util.Pair;
  */
 public class BbsApplication extends Application{
 
+    private String LOGIN_INFO = "loginInfo"; //info name
+    private String NAME = "userName";
+    private String PASSWORD = "password";
 
-    public Pair<String,String> loadLoginInfo(String username,String password){
-        SharedPreferences loginPreference = getSharedPreferences("loginInfo", MODE_PRIVATE);
 
-        return new Pair<String,String>(loginPreference.getString(username, ""),loginPreference.getString(password,""));
+    /**
+     * get info
+     * @return
+     */
+    public Pair<String,String> loadLoginInfo(){
+        SharedPreferences loginPreference = getSharedPreferences(LOGIN_INFO, MODE_PRIVATE);
+        return new Pair<String,String>(loginPreference.getString(NAME, ""),loginPreference.getString(PASSWORD,""));
     }
 
 
+    /**
+     * @param strUserName
+     * @param strPassword
+     */
     public void saveLoginInfo(String strUserName, String strPassword) {
-        SharedPreferences loginPreferences =
-                getSharedPreferences("loginInfo", MODE_PRIVATE);
+        SharedPreferences loginPreferences = getSharedPreferences(LOGIN_INFO, MODE_PRIVATE);
         loginPreferences.edit()
-                .putString("userName", strUserName)
-                .putString("password", strPassword)
+                .putString(NAME, strUserName)
+                .putString(PASSWORD, strPassword)
                 .commit();
     }
 
 
-
+    /**
+     * clear info
+     */
     public void clearLoginInfo() {
         SharedPreferences loginPreferences =
-                getSharedPreferences("loginInfo", MODE_PRIVATE);
+                getSharedPreferences(LOGIN_INFO, MODE_PRIVATE);
         loginPreferences.edit().clear().commit();
     }
+
+
+
 
 }
