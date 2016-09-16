@@ -1,5 +1,6 @@
 package com.lei.bbs.activity;
 
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,18 +13,13 @@ import android.widget.Toast;
 import com.lei.bbs.R;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
-import com.lei.bbs.retrofit.RetrofitUtil;
 import com.lei.bbs.retrofit.StarHomeService;
 import com.lei.bbs.util.MyToast;
-
-import org.json.JSONObject;
-
 import java.util.HashMap;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.HTTP;
+
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     //view

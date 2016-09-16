@@ -11,5 +11,8 @@
 
     <color name="btn_focus">#4474BB</color>
     <color name="btn_normal">#31A4F0</color>
+    <color name="gray_e">#eeeeee</color>
+    <color name="transparent">#00000000</color>
+    <color name="gray_divider">#EDEDED</color>
 
 </resources>

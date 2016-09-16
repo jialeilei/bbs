@@ -14,19 +14,20 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/title_blue">
-        <ImageView
+       <!-- <ImageView
             android:id="@+id/imgSetting"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:padding="5dp"
-            android:src="@mipmap/setting"/>
+            android:src="@mipmap/setting"/>-->
         <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
             android:textColor="@color/white"
-            android:text="@string/mainName"/>
+            android:text="@string/detail_title"/>
     </RelativeLayout>
 
 
