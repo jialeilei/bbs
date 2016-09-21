@@ -1,13 +1,20 @@
 package com.lei.bbs.bean;
 
 /**
- * Created by CCC on 2016/9/5.
+ * Created by lei on 2016/9/5.
  */
+
 public class BBS {
+
+    private int userId;
     private String name;
+
     private String avatar;
+
     private String sendTime;
-    private int answerTimes;
+
+    private int answerTimes;//
+
     private String title;
     private String content;
 
@@ -79,4 +86,14 @@ public class BBS {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+
 }

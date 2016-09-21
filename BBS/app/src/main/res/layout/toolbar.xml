@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <!-- left -->
+        <LinearLayout
+            android:id="@+id/llLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/imgLeft"
+                style="?attr/toolbarNavigationButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
+
+            <TextView
+                android:id="@+id/tvLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:minWidth="56dp"
+                android:background="?attr/controlBackground"
+                android:drawablePadding="10dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/white"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <!-- center -->
+        <TextView
+            android:id="@+id/tvCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textStyle="bold" />
+
+        <!-- right -->
+        <LinearLayout
+            android:id="@+id/llRight"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/tvRight"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?attr/controlBackground"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:minWidth="56dp"
+                android:text="@android:string/ok"
+                android:textColor="@color/white"
+                android:visibility="gone"/>
+
+            <ImageButton
+                android:id="@+id/imgRight"
+                style="?attr/toolbarNavigationButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

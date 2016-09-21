@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--<declare-styleable name="MyToolBar">
+        <attr name="android:background"/>
+        <attr name="enableTvLeft" format="boolean"></attr>
+        <attr name="enableTvRight" format="boolean"></attr>
+        <attr name="disableRightView" format="boolean"></attr>
+        <attr name="enableGoBackEvent" format="boolean"></attr>
+    </declare-styleable>-->
+
+
+</resources>

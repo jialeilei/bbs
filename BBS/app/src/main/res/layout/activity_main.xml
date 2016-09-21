@@ -5,21 +5,23 @@
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="true"
-        android:fitsSystemWindows="true"
         android:orientation="vertical"
         tools:context=".activity.MainActivity">
+
 
         <!-- main -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="true"
-            android:fitsSystemWindows="true"
-            android:orientation="vertical"
-            android:background="@color/title_blue">
+            android:orientation="vertical">
+
+            <com.lei.bbs.util.DiyToolBar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.lei.bbs.util.DiyToolBar>
             <!-- title -->
-            <RelativeLayout
+          <!--  <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@color/title_blue">
@@ -35,24 +37,21 @@
                     android:layout_height="40dp"
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:text="@string/mainName"/>
+                    android:text="@string/mainName"
+                    android:textSize="16sp"/>
 
-            </RelativeLayout>
+            </RelativeLayout>-->
 
 
 
             <!-- list view -->
-          <!--  <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="@color/white">-->
                 <android.support.v4.widget.SwipeRefreshLayout
                     android:id="@+id/srl"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:orientation="vertical">
+
                     <ListView
                         android:id="@+id/lvMain"
                         android:layout_width="match_parent"
@@ -60,11 +59,7 @@
                     </ListView>
 
                 </android.support.v4.widget.SwipeRefreshLayout>
-
             </LinearLayout>
-
-
-        <!--</LinearLayout>-->
 
         <!-- left -->
         <LinearLayout

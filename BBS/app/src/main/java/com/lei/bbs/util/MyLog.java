@@ -1,7 +1,6 @@
 package com.lei.bbs.util;
 
 
-
 import android.util.Log;
 
 /**

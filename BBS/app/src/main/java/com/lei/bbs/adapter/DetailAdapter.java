@@ -62,14 +62,17 @@ public class DetailAdapter extends BaseAdapter{
 		viewHolder.tvName.setText(bbs.getName());
 		viewHolder.tvLevel.setText(""+bbs.getLevel());
 		if (bbs.getFloor()==0){
+			viewHolder.tvTitle.setVisibility(View.VISIBLE);
+			viewHolder.tvTitle.setText(bbs.getTitle());
 			viewHolder.tvTopFloor.setVisibility(View.VISIBLE);
 			viewHolder.tvFloorNum.setVisibility(View.GONE);
 		}else {
+			viewHolder.tvTitle.setVisibility(View.GONE);
 			viewHolder.tvTopFloor.setVisibility(View.INVISIBLE);
 			viewHolder.tvFloorNum.setText("第"+bbs.getFloor()+"层");
+
 		}
 		viewHolder.tvSendTime.setText(bbs.getSendTime());
-		viewHolder.tvTitle.setText(bbs.getTitle());
 		viewHolder.tvContent.setText(bbs.getContent());
 		if (bbs.getSex().equals("boy")){
 			viewHolder.imgSex.setImageResource(R.mipmap.boy);
