@@ -4,6 +4,8 @@ package com.lei.bbs.retrofit;
 import com.lei.bbs.bean.BBS;
 import com.lei.bbs.bean.BbsList;
 import com.lei.bbs.bean.Response;
+
+import java.util.ArrayList;
 import java.util.Map;
 import retrofit2.Call;
 import retrofit2.http.FieldMap;
@@ -27,9 +29,7 @@ public interface StarHomeService {
     @FormUrlEncoded
     Call<Response> postLogin(@FieldMap Map<String, String> fields);
 
-    @GET("mainFeed.php")
-    @FormUrlEncoded
-    Call<BbsList> getFeedList();
-
+        @GET("mainFeedList.php")
+    Call<ArrayList<BBS>> getFeedList();
 
 }

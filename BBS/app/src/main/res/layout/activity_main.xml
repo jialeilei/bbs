@@ -20,29 +20,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </com.lei.bbs.util.DiyToolBar>
-            <!-- title -->
-          <!--  <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/title_blue">
-                <ImageView
-                    android:id="@+id/imgSetting"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="10dp"
-                    android:padding="5dp"
-                    android:src="@mipmap/setting"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:text="@string/mainName"
-                    android:textSize="16sp"/>
-
-            </RelativeLayout>-->
-
-
 
             <!-- list view -->
                 <android.support.v4.widget.SwipeRefreshLayout
@@ -59,7 +36,7 @@
                     </ListView>
 
                 </android.support.v4.widget.SwipeRefreshLayout>
-            </LinearLayout>
+        </LinearLayout>
 
         <!-- left -->
         <LinearLayout
@@ -70,17 +47,8 @@
             android:background="@color/left_bg"
             android:orientation="vertical"
             android:layout_gravity="start">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text="slide"/>
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="注册"/>
+
+            <include layout="@layout/left_content"></include>
 
         </LinearLayout>
 

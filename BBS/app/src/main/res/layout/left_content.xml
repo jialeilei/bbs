@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="260dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/left_bg">
+
+    <RelativeLayout
+        android:id="@+id/rlHeaderContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp">
+        <com.lei.bbs.util.CircleImage
+            android:id="@+id/imgHead"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="50dp"
+            android:src="@mipmap/head"/>
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/imgHead"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="name"/>
+        <TextView
+            android:id="@+id/tvDetail"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@+id/imgHead"
+            android:layout_below="@+id/tvName"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="等级"/>
+    </RelativeLayout>
+
+
+    <!--<Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:text="注册"/>
+-->
+</LinearLayout>

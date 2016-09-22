@@ -7,24 +7,19 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import com.lei.bbs.R;
 import com.lei.bbs.adapter.MainAdapter;
 import com.lei.bbs.bean.BBS;
-import com.lei.bbs.bean.BbsList;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
 import com.lei.bbs.retrofit.StarHomeService;
+import com.lei.bbs.util.CircleImage;
 import com.lei.bbs.util.DiyToolBar;
 import com.lei.bbs.util.MyLog;
-
-import org.w3c.dom.ProcessingInstruction;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,8 +29,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     //list
     private List<BBS> bbsList = new ArrayList<BBS>();
     //view
-    private Button btnToLogin;
-    private ImageButton imgSetting;
+    //private Button btnToLogin;
+    private CircleImage imgHead;
+    private ImageButton imgSetting, imgWrite;
     private ListView lvMain;
     private DrawerLayout drawerLayout;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -48,20 +44,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        addData();
+
+        setToolBar();
         initView();
     }
 
     private void initView(){
-        setToolBar();
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        //imgSetting = (ImageView) findViewById(R.id.imgSetting);
-
-        btnToLogin = (Button) findViewById(R.id.btnLogin);
-        btnToLogin.setOnClickListener(this);
+        imgHead = (CircleImage) findViewById(R.id.imgHead);
+        imgHead.setOnClickListener(this);
         lvMain = (ListView) findViewById(R.id.lvMain);
         mainAdapter = new MainAdapter(this,bbsList);
+        lvMain.setAdapter(mainAdapter);
+
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl);
         swipeRefreshLayout.setColorSchemeResources(R.color.title_blue);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -70,6 +66,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        getFeedList();
                         try {
                             Thread.sleep(1500);
                         } catch (InterruptedException e) {
@@ -79,25 +76,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                             @Override
                             public void run() {
                                 swipeRefreshLayout.setRefreshing(false);
+
                             }
                         });
                     }
                 }).start();
 
-
             }
         });
 
-        lvMain.setAdapter(mainAdapter);
+
         lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, BbsDetailActivity.class);
-                //Intent intent = new Intent(MainActivity.this, ToolBarActivity1.class);
                 startActivity(intent);
             }
         });
-        showToLoginActivity();
+
+    }
+
+    private void refreshListView(){
+        mainAdapter = new MainAdapter(this,bbsList);
+        lvMain.setAdapter(mainAdapter);
+        //mainAdapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -107,7 +110,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //title
         toolBar.getTvCenter().setText(R.string.mainTitle);
         //imgRight
-        toolBar.disableRight();
+        //toolBar.disableRight();
+        imgWrite = toolBar.getImgRight();
+        imgWrite.setImageResource(R.mipmap.write);
+        imgWrite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         //imgLeft
         toolBar.enableLeft();
         imgSetting = toolBar.getImgLeft();
@@ -120,38 +131,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
     }
 
-    private void addData(){
-
-        if (bbsList.size() > 0){
-            bbsList.clear();
-        } 
-        getFeedList();
-
-        bbsList.add(new BBS("西门吹雪", "一小时前", 5, "里约奥运的奇葩", "点击付款if你，分地方尽快发放红包。"));
-        bbsList.add(new BBS("西门吹雪", "一小时前", 5, "里约奥运的奇葩", "点击付款if你，分地方尽快发放红包。"));
-        bbsList.add(new BBS("西门吹雪", "一小时前", 5, "里约奥运的奇葩", "点击付款if你，分地方尽快发放红包。"));
-        bbsList.add(new BBS("西门吹雪", "一小时前", 5, "里约奥运的奇葩", "点击付款if你，分地方尽快发放红包。"));
-        bbsList.add(new BBS("西门吹雪", "一小时前", 5, "里约奥运的奇葩", "点击付款if你，分地方尽快发放红包。"));
-        bbsList.add(new BBS("西门吹雪", "一小时前", 5, "里约奥运的奇葩", "点击付款if你，分地方尽快发放红包。"));
-    }
 
     private void getFeedList(){
         StarHomeService service = HttpHelper.createHubService(Constants.base_url);
-        Call<BbsList>  getList = service.getFeedList();
-        getList.enqueue(new Callback<BbsList>() {
+        Call<ArrayList<BBS>>  getList = service.getFeedList();
+        getList.enqueue(new Callback<ArrayList<BBS>>() {
             @Override
-            public void onResponse(Call<BbsList> call, Response<BbsList> response) {
+            public void onResponse(Call<ArrayList<BBS>> call, Response<ArrayList<BBS>> response) {
                 if (response.body() != null) {
-                    MyLog.i(TAG, "" + response.body().getBbs());
-                    if (response.body().getBbs().size() > 0) {
-                        bbsList = response.body().getBbs();
+                    if (response.body().size() > 0) {
+                        bbsList = response.body();
                     }
+                    refreshListView();
                 }
 
             }
 
             @Override
-            public void onFailure(Call<BbsList> call, Throwable t) {
+            public void onFailure(Call<ArrayList<BBS>> call, Throwable t) {
                 MyLog.i(TAG, "fail " + t);
             }
         });
@@ -168,23 +165,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
 
                 break;
+            case R.id.imgHead:
+                showBelowDialog();
+                break;
             default:
 
                 break;
         }
     }
 
-    private void showToLoginActivity(){
-        if (Constants.onLine){
-            btnToLogin.setVisibility(View.GONE);
-        }else {
-            btnToLogin.setVisibility(View.VISIBLE);
-        }
+    private void showBelowDialog(){
+
     }
+
+
 
     @Override
     protected void onPause() {
         super.onPause();
-        showToLoginActivity();
     }
 }

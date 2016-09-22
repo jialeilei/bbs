@@ -150,6 +150,11 @@ public class DiyToolBar extends FrameLayout {
         this.tvLeft.setVisibility(View.VISIBLE);
     }
 
+    public void enableImgBtnLeft(){
+        this.imgLeft.setVisibility(View.VISIBLE);
+        this.tvLeft.setVisibility(GONE);
+    }
+
 
 
     //right

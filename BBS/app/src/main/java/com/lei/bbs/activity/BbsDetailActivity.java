@@ -12,6 +12,10 @@ import com.lei.bbs.util.DiyToolBar;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * create by lei
+ */
+
 public class BbsDetailActivity extends BaseActivity {
     //view
     private ListView lvDetail;
