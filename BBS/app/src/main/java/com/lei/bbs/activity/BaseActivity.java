@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import com.lei.bbs.R;
 import com.lei.bbs.util.DiyToolBar;
 
 

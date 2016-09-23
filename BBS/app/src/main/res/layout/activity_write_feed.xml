@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.lei.bbs.activity.WriteFeedActivity">
+
+    <com.lei.bbs.util.DiyToolBar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.lei.bbs.util.DiyToolBar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/et_border"
+            android:textColorHint="@color/gray_d"
+            android:hint="@string/remind_title"
+            android:singleLine="true"/>
+
+        <EditText
+            android:id="@+id/etContent"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/etTitle"
+            android:layout_height="250dp"
+            android:textColorHint="@color/gray_d"
+            android:hint="@string/remind_content"
+            android:background="@drawable/et_border"
+            android:singleLine="false"/>
+
+        <Button
+            android:id="@+id/btnSure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etContent"
+            android:background="@drawable/btn_selector"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/white"
+            android:text="@string/sure"/>
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

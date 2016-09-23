@@ -22,7 +22,8 @@
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.ToolBarActivity1" />
         <activity android:name=".activity.ToolBarActivity2" />
-        <activity android:name=".activity.BaseActivity"></activity>
+        <activity android:name=".activity.BaseActivity" />
+        <activity android:name=".activity.WriteFeedActivity"></activity>
     </application>
 
 </manifest>

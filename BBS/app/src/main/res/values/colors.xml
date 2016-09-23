@@ -14,5 +14,6 @@
     <color name="gray_e">#eeeeee</color>
     <color name="transparent">#00000000</color>
     <color name="gray_divider">#EDEDED</color>
+    <color name="gray_c">#cccccc</color>
 
 </resources>

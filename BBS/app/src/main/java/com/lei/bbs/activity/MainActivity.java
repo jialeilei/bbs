@@ -116,7 +116,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         imgWrite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(MainActivity.this,WriteFeedActivity.class);
+                startActivity(intent);
             }
         });
         //imgLeft

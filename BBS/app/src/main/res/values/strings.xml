@@ -14,4 +14,9 @@
     <string name="register">注册</string>
     <string name="passwordAgain">重新输入密码</string>
     <string name="detail_title">详情</string>
+    <string name="write_feed">发表主题</string>
+    <string name="sure">确定</string>
+    <string name="remind_title">输入标题</string>
+    <string name="remind_content">输入内容</string>
+
 </resources>
