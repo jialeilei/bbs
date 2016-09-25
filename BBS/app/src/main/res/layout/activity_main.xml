@@ -15,11 +15,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.lei.bbs.util.DiyToolBar
+            <com.lei.bbs.util.MyToolBar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            </com.lei.bbs.util.DiyToolBar>
+            </com.lei.bbs.util.MyToolBar>
 
             <!-- list view -->
                 <android.support.v4.widget.SwipeRefreshLayout

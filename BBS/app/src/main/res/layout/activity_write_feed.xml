@@ -6,11 +6,11 @@
     android:orientation="vertical"
     tools:context="com.lei.bbs.activity.WriteFeedActivity">
 
-    <com.lei.bbs.util.DiyToolBar
+    <com.lei.bbs.util.MyToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    </com.lei.bbs.util.DiyToolBar>
+    </com.lei.bbs.util.MyToolBar>
 
     <RelativeLayout
         android:layout_width="match_parent"

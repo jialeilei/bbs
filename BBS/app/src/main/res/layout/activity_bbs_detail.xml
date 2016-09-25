@@ -28,12 +28,12 @@
             android:textSize="16sp"/>
     </RelativeLayout>-->
 
-    <com.lei.bbs.util.DiyToolBar
+    <com.lei.bbs.util.MyToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    </com.lei.bbs.util.DiyToolBar>
+    </com.lei.bbs.util.MyToolBar>
 
     <LinearLayout
         android:layout_width="match_parent"

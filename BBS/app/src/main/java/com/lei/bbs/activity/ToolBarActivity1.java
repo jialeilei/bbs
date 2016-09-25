@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import com.lei.bbs.R;
-import com.lei.bbs.util.DiyToolBar;
+import com.lei.bbs.util.MyToolBar;
 
 public class ToolBarActivity1 extends BaseActivity {
 
-    private DiyToolBar toolBar;
+    private MyToolBar toolBar;
     private ImageButton imgRight;
 
     @Override
@@ -22,7 +22,7 @@ public class ToolBarActivity1 extends BaseActivity {
     }
 
     private void initView(){
-        toolBar = (DiyToolBar) findViewById(R.id.toolbar);
+        toolBar = (MyToolBar) findViewById(R.id.toolbar);
         toolBar.getTvCenter().setText("title");
         toolBar.setBackgroundColor(getResources().getColor(R.color.title_blue));
         imgRight = toolBar.getImgRight();

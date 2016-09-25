@@ -4,6 +4,7 @@ package com.lei.bbs.bean;
  * Created by lei on 2016/9/14.
  */
 public class User {
+
     private int id;
     private String userName;
     private String nickName;
@@ -56,4 +57,6 @@ public class User {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+
 }

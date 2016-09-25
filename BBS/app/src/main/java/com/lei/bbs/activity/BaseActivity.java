@@ -5,8 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
 
-import com.lei.bbs.R;
-import com.lei.bbs.util.DiyToolBar;
+import com.lei.bbs.util.MyToolBar;
 
 
 /**
@@ -14,7 +13,7 @@ import com.lei.bbs.util.DiyToolBar;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
-    public DiyToolBar toolBar;
+    public MyToolBar toolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

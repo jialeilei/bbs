@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.lei.bbs.R;
 import com.lei.bbs.adapter.DetailAdapter;
 import com.lei.bbs.bean.Detail;
-import com.lei.bbs.util.DiyToolBar;
+import com.lei.bbs.util.MyToolBar;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +57,7 @@ public class BbsDetailActivity extends BaseActivity {
     @Override
     public void setToolBar() {
 
-        toolBar = (DiyToolBar) findViewById(R.id.toolbar);
+        toolBar = (MyToolBar) findViewById(R.id.toolbar);
         toolBar.setBackgroundColor(getResources().getColor(R.color.title_blue));
         //title
         tvTitle = toolBar.getTvCenter();

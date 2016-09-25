@@ -26,7 +26,7 @@
             android:textColor="@color/white"
             android:text="name"/>
         <TextView
-            android:id="@+id/tvDetail"
+            android:id="@+id/tvSex"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:layout_toRightOf="@+id/imgHead"
