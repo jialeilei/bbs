@@ -16,11 +16,11 @@ public class Constants {
     public static String level = "";
     public static String sex = "";
 
-    //log info
+    //loginInfo
     public static String SHARE_LOGIN_INFO = "loginInfo";
     public static String SHARE_NAME = "userName";
     public static String SHARE_PASSWORD = "password";
-    //user info
+    //userInfo
     public static String SHARE_USER_INFO = "userInfo";
     public static String SHARE_ID = "userInfo";
     public static String SHARE_SEX = "userInfo";

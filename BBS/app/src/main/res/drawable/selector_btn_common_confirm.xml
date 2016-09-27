@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/btn_confirm_pressed"
+        android:state_pressed="true"
+        android:state_focused="false"/>
+
+    <item android:drawable="@drawable/btn_confirm_pressed"
+        android:state_focused="true" />
+
+    <item android:drawable="@drawable/btn_confirm_normal"
+        android:state_focused="false" />
+
+</selector>

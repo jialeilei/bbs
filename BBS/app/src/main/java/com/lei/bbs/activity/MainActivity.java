@@ -1,5 +1,6 @@
 package com.lei.bbs.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.widget.DrawerLayout;
@@ -7,7 +8,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +22,7 @@ import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
 import com.lei.bbs.retrofit.StarHomeService;
 import com.lei.bbs.util.CircleImage;
+import com.lei.bbs.util.Common;
 import com.lei.bbs.util.MyToolBar;
 import com.lei.bbs.util.MyLog;
 import java.util.ArrayList;
@@ -37,10 +42,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private DrawerLayout drawerLayout;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView tvName,tvSex;
+    private Button btnLogout;
     //others
     private MainAdapter mainAdapter;
     private String TAG="MainActivity";
     private android.os.Handler handler = new android.os.Handler();
+    private boolean isShowing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +68,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         lvMain = (ListView) findViewById(R.id.lvMain);
         mainAdapter = new MainAdapter(this,bbsList);
         lvMain.setAdapter(mainAdapter);
-
-        isUserOnLine();
-
+        btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(this);
+        //isUserOnLine();
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl);
         swipeRefreshLayout.setColorSchemeResources(R.color.title_blue);
@@ -116,6 +123,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onRestart();
 
         isUserOnLine();
+        if (!isShowing){
+            setUserInfo();
+        }
     }
 
 
@@ -150,6 +160,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(Gravity.LEFT);
+
+                isUserOnLine();
             }
         });
     }
@@ -182,10 +194,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-
-            case R.id.btnLogin:
-                /*Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);*/
+            case R.id.btnLogout:
+                if (!Constants.userName.equals("")){
+                    showLogoutDialog();
+                }
 
                 break;
             case R.id.imgHead:
@@ -202,6 +214,40 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void showBelowDialog(){
 
+    }
+
+    private void showLogoutDialog(){
+        View view = getLayoutInflater().inflate(R.layout.dialog_logout,null);
+        final Dialog logoutDialog = new Dialog(this,R.style.transparentFrameWindowStyle);
+        logoutDialog.setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        logoutDialog.setCanceledOnTouchOutside(true);
+        Window window = logoutDialog.getWindow();
+        logoutDialog.show();
+        Button btnCancel = (Button) window.findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutDialog.dismiss();
+            }
+        });
+
+        Button btnConfirm = (Button) window.findViewById(R.id.btnConfirm);
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Common.isEmpty(Constants.userName, Constants.sex)){
+
+                    SharedPreferences userInfo = getSharedPreferences(Constants.SHARE_USER_INFO,MODE_PRIVATE);
+                    userInfo.edit().clear().commit();
+                    SharedPreferences loginInfo = getSharedPreferences(Constants.SHARE_LOGIN_INFO,MODE_PRIVATE);
+                    loginInfo.edit().clear().commit();
+                    MyLog.i(TAG, "已经退出");
+                    logoutDialog.dismiss();
+                    clearUserInfo();
+                    toLoginActivity();
+                }
+            }
+        });
     }
 
     private void isUserOnLine(){
@@ -234,6 +280,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvName.setText(Constants.userName);
         tvSex.setText(Constants.sex);
         MyLog.i(TAG,"name "+Constants.userName+" sex "+Constants.sex);
+        isShowing = true;
+    }
+
+    private void clearUserInfo(){
+        tvName.setText("");
+        tvSex.setText("");
+        isShowing = false;
     }
 
     private void toLoginActivity(){

@@ -7,6 +7,15 @@ package com.lei.bbs.util;
 public class Common {
 
 
+    public static Boolean isEmpty(String a, String b){
+        if (a.equals("")||b.equals("")){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+
 
 
 }

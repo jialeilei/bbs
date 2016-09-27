@@ -15,13 +15,15 @@ import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
 import com.lei.bbs.retrofit.StarHomeService;
 import com.lei.bbs.util.MyToast;
+import com.lei.bbs.util.MyToolBar;
+
 import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
+public class RegisterActivity extends BaseActivity implements View.OnClickListener{
     //view
     private Button btnRegister;
     private EditText edEmail,edPassword,edPasswordAgain;
@@ -37,9 +39,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void initView(){
-        //透明状态栏
+       /* //透明状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);*/
 
 
         btnRegister = (Button) findViewById(R.id.btnRegister);
@@ -47,8 +49,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         edEmail = (EditText) findViewById(R.id.edEmail);
         edPassword = (EditText) findViewById(R.id.edPassword);
         edPasswordAgain = (EditText) findViewById(R.id.edPasswordAgain);
-        imgLeft = (ImageView) findViewById(R.id.imgLeft);
-        imgLeft.setOnClickListener(this);
+        /*imgLeft = (ImageView) findViewById(R.id.imgLeft);
+        imgLeft.setOnClickListener(this);*/
+    }
+
+    @Override
+    public void setToolBar() {
+        toolBar = (MyToolBar) findViewById(R.id.toolbar);
+        toolBar.setTitle(R.string.register);
+        //back
+        imgLeft = toolBar.getImgLeft();
+        imgLeft.setImageResource(R.mipmap.left);
+        imgLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegisterActivity.this.finish();
+            }
+        });
     }
 
     @Override
@@ -68,10 +85,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
 
                 break;
-            case R.id.imgLeft:
+           /* case R.id.imgLeft:
                 this.finish();
 
-                break;
+                break;*/
             default:
 
                 break;

@@ -18,6 +18,7 @@ import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
 import com.lei.bbs.retrofit.StarHomeService;
 import com.lei.bbs.util.BbsApplication;
+import com.lei.bbs.util.Common;
 import com.lei.bbs.util.EqualEmpty;
 import com.lei.bbs.util.MyLog;
 import com.lei.bbs.util.MyToast;
@@ -71,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }*/
 
             Pair<String ,String> loginInfo = loadLoginInfo();
-            if (EqualEmpty.isValue(loginInfo.first, loginInfo.second)){
+            if (Common.isEmpty(loginInfo.first, loginInfo.second)){
                 edEmail.setText(loginInfo.first);
                 edPassword.setText(loginInfo.second);
                 cbRemember.setChecked(true);

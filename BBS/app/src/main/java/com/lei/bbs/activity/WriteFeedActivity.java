@@ -11,6 +11,7 @@ import com.lei.bbs.bean.Response;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
 import com.lei.bbs.retrofit.StarHomeService;
+import com.lei.bbs.util.Common;
 import com.lei.bbs.util.EqualEmpty;
 import com.lei.bbs.util.MyLog;
 import com.lei.bbs.util.MyToast;
@@ -73,7 +74,7 @@ public class WriteFeedActivity extends BaseActivity implements View.OnClickListe
                 String title = etTitle.getText().toString();
                 String content = etContent.getText().toString();
 
-                if (EqualEmpty.isValue(title, content)){
+                if (Common.isEmpty(title, content)){
                     sendFeed(Constants.userId, title, content);
                 }else {
                     MyToast.showShort(this,"标题和内容不能为空");
