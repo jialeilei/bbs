@@ -22,6 +22,10 @@ public class BbsApplication extends Application{
     private String SEX = "userInfo";
 
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 
     /**
      * get info

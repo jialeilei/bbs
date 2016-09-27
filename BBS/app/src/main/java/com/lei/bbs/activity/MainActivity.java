@@ -17,7 +17,6 @@ import com.lei.bbs.bean.BBS;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
 import com.lei.bbs.retrofit.StarHomeService;
-import com.lei.bbs.util.BbsApplication;
 import com.lei.bbs.util.CircleImage;
 import com.lei.bbs.util.MyToolBar;
 import com.lei.bbs.util.MyLog;
@@ -63,8 +62,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mainAdapter = new MainAdapter(this,bbsList);
         lvMain.setAdapter(mainAdapter);
 
-        //isUserOnLine();
-        setUserInfo();
+        isUserOnLine();
+
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl);
         swipeRefreshLayout.setColorSchemeResources(R.color.title_blue);
@@ -115,9 +114,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onRestart() {
         super.onRestart();
-        //isUserOnLine();
-        setUserInfo();
+
+        isUserOnLine();
     }
+
 
     @Override
     public void setToolBar() {
@@ -133,8 +133,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this,WriteFeedActivity.class);
-                startActivity(intent);
+                if (Constants.userName.equals("")||Constants.sex.equals("")){
+                    isUserOnLine();
+                }else {
+                    Intent intent = new Intent(MainActivity.this,WriteFeedActivity.class);
+                    startActivity(intent);
+                }
 
             }
         });
@@ -186,8 +190,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.imgHead:
                 showBelowDialog();
-                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
+
+                isUserOnLine();
 
                 break;
             default:
@@ -200,45 +204,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-  /*  private void isUserOnLine(){
+    private void isUserOnLine(){
 
-        SharedPreferences user = getSharedPreferences("userInfo", MODE_PRIVATE);
-        if (user.getString("id","").equals("")
-                ||user.getString("name","").equals("")
-                ||user.getString("sex","").equals("")){
+        if (Constants.userName.equals("") || Constants.sex.equals("")){
+            SharedPreferences user = getSharedPreferences("userInfo", MODE_PRIVATE);
 
-            MyLog.i(TAG, "没有信息,需要登录");
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
+            if (user.getInt("id",0)==0
+                    ||user.getString("name","").equals("")
+                    ||user.getString("sex","").equals("")){
 
-        }else {
-            Constants.userId = user.getInt("id",0);
-            Constants.userName = user.getString("name","");
-            Constants.sex = user.getString("sex","");
-            MyLog.i(TAG, "无需登录");
-        }
+                MyLog.i(TAG, "没有信息,需要登录");
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
 
-    }*/
-
-   /* public void isUserOnLine(){
-
-        SharedPreferences user = getSharedPreferences("userInfo", MODE_PRIVATE);
-        if (user.getInt("id",0)==0
-                ||user.getString("name","").equals("")
-                ||user.getString("sex","").equals("")){
-
-            toLoginActivity();
-
-        }else {
-            Constants.userId = user.getInt("id",0);
-            Constants.userName = user.getString("name", "");
-            Constants.sex = user.getString("sex","");
-            tvName.setText(Constants.userName);
-            tvSex.setText(Constants.sex);
+            }else {
+                Constants.userId = user.getInt("id",0);
+                Constants.userName = user.getString("name", "");
+                Constants.sex = user.getString("sex","");
+                MyLog.i(TAG, "无需登录");
+                setUserInfo();
+            }
 
         }
+    }
 
-    }*/
+
 
     private void setUserInfo(){
         tvName.setText(Constants.userName);

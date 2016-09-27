@@ -20,14 +20,13 @@ public class HttpHelper {
 
         okHttpBuilder.addInterceptor(logging);
 
-
         OkHttpClient client = okHttpBuilder.build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(client)
                         //增加返回值为String的支持
                 .addConverterFactory(ScalarsConverterFactory.create())
-                        //增加返回值为Gson的支持(以实体类返回)
+                        //增加返回值为 json 的支持(以实体类返回)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return  retrofit.create(StarHomeService.class);

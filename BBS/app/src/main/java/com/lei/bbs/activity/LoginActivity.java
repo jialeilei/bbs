@@ -148,6 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (response.body().getStatus() != null){
                     int status = Integer.parseInt(response.body().getStatus());
                     int id = response.body().getUserId();
+                    MyLog.i("lei","id: "+id);
                     String sex = response.body().getSex();
                     String name = response.body().getUserName();
                     switch (status){
@@ -155,7 +156,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             MyToast.showShort(LoginActivity.this,"login success");
                             Constants.onLine = true;
                             //mApp.saveUserInfo(id,name,sex); //储存
-                            saveUserInfo(id,name,sex);
+                            saveUserInfo(id, name, sex);
                             Constants.userName = name;
                             Constants.sex = sex;
                             Constants.userId = id;
