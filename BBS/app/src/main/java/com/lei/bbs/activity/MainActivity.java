@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         lvMain.setAdapter(mainAdapter);
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(this);
-        //isUserOnLine();
+        isUserOnLine();
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl);
         swipeRefreshLayout.setColorSchemeResources(R.color.title_blue);
@@ -103,7 +103,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         lvMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Intent intent = new Intent(MainActivity.this, BbsDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("userId",bbsList.get(position).getUserId());
+                bundle.putInt("mainId",bbsList.get(position).getMid());
+                bundle.putString("name", bbsList.get(position).getName());
+                bundle.putString("sex",bbsList.get(position).getSex());
+                bundle.putInt("score",bbsList.get(position).getScore());
+                bundle.putString("title", bbsList.get(position).getTitle());
+                bundle.putString("content",bbsList.get(position).getContent());
+                bundle.putString("sendTime",bbsList.get(position).getSendTime());
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });

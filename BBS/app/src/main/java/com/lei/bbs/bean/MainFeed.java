@@ -3,7 +3,9 @@ package com.lei.bbs.bean;
 /**
  * Created by lei on 2016/9/26.
  */
+
 public class MainFeed {
+
     private int userId;
     private String title;
     private String content;

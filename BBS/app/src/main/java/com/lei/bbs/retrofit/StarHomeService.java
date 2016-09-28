@@ -1,7 +1,9 @@
 package com.lei.bbs.retrofit;
 
 
+import com.lei.bbs.bean.AnswerFeedList;
 import com.lei.bbs.bean.BBS;
+import com.lei.bbs.bean.AnswerFeed;
 import com.lei.bbs.bean.Response;
 import java.util.ArrayList;
 import java.util.Map;
@@ -42,4 +44,12 @@ public interface StarHomeService {
         @GET("mainFeedList.php")
     Call<ArrayList<BBS>> getFeedList();
 
+
+        @POST("answerFeedList.php")
+        @FormUrlEncoded
+    Call<ArrayList<AnswerFeed>> postAnswerFeedList(@Field("mid") int mid);
+
+  /*  @POST("answerFeedList.php")
+    @FormUrlEncoded
+    Call<AnswerFeedList> postAnswerFeedList(@Field("mid") int mid);*/
 }

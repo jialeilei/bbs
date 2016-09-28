@@ -6,11 +6,4 @@ package com.lei.bbs.util;
 public class EqualEmpty {
 
 
-    /*public static Boolean isValue(String a, String b){
-        if (a.equals("")||b.equals("")){
-            return false;
-        }else {
-            return true;
-        }
-    }*/
 }

@@ -7,16 +7,18 @@ package com.lei.bbs.bean;
 public class BBS {
 
     private int userId;
+    private int mid; //main feed id
     private String name;
-
-    private String avatar;
-
-    private String sendTime;
-
-    private int answerTimes;//
-
+    private String sex;
+    private int score;
     private String title;
     private String content;
+    private String sendTime;
+
+    // empty now
+    private int answerTimes;
+    private String avatar;
+
 
    /* public BBS(String name,String avatar,String sendTime,int answerTimes,String title,String content ){
         this.name = name;
@@ -36,8 +38,13 @@ public class BBS {
     }
 
 
+    public int getMid() {
+        return mid;
+    }
 
-
+    public void setMid(int mid) {
+        this.mid = mid;
+    }
 
     public int getAnswerTimes() {
         return answerTimes;
@@ -61,6 +68,23 @@ public class BBS {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getScore() {
+
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getAvatar() {

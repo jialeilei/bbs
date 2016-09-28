@@ -1,5 +1,6 @@
 package com.lei.bbs.adapter;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,14 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.lei.bbs.R;
-import com.lei.bbs.bean.Detail;
+import com.lei.bbs.bean.AnswerFeed;
 import java.util.List;
 
+
+
 public class DetailAdapter extends BaseAdapter{
-	private List<Detail> bbsList;
+	private List<AnswerFeed> bbsList;
 	private Context context;
 
-	public DetailAdapter(Context context, List<Detail> bbsList){
+	public DetailAdapter(Context context, List<AnswerFeed> bbsList){
 		this.context=context;
 		this.bbsList=bbsList;
 	}
@@ -37,7 +40,7 @@ public class DetailAdapter extends BaseAdapter{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Detail bbs=bbsList.get(position);
+		AnswerFeed bbs=bbsList.get(position);
 		View view;
 		ViewHolder viewHolder;
 		if (convertView==null) {
@@ -60,8 +63,8 @@ public class DetailAdapter extends BaseAdapter{
 		}
 
 		viewHolder.tvName.setText(bbs.getName());
-		viewHolder.tvLevel.setText(""+bbs.getLevel());
-		if (bbs.getFloor()==0){
+		viewHolder.tvLevel.setText(""+bbs.getScore());
+		if (position <= 0){
 			viewHolder.tvTitle.setVisibility(View.VISIBLE);
 			viewHolder.tvTitle.setText(bbs.getTitle());
 			viewHolder.tvTopFloor.setVisibility(View.VISIBLE);
@@ -69,7 +72,8 @@ public class DetailAdapter extends BaseAdapter{
 		}else {
 			viewHolder.tvTitle.setVisibility(View.GONE);
 			viewHolder.tvTopFloor.setVisibility(View.INVISIBLE);
-			viewHolder.tvFloorNum.setText("第"+bbs.getFloor()+"层");
+			viewHolder.tvFloorNum.setVisibility(View.VISIBLE);
+			viewHolder.tvFloorNum.setText("第"+position+"层");
 
 		}
 		viewHolder.tvSendTime.setText(bbs.getSendTime());
