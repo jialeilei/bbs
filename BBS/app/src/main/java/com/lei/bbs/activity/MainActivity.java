@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.lei.bbs.R;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView tvName,tvSex;
     private Button btnLogout;
+    private ImageView imgSex;
     //others
     private MainAdapter mainAdapter;
     private String TAG="MainActivity";
@@ -65,6 +67,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         imgHead.setOnClickListener(this);
         tvName = (TextView) findViewById(R.id.tvName);
         tvSex = (TextView) findViewById(R.id.tvSex);
+        imgSex = (ImageView) findViewById(R.id.imgSex);
+
         lvMain = (ListView) findViewById(R.id.lvMain);
         mainAdapter = new MainAdapter(this,bbsList);
         lvMain.setAdapter(mainAdapter);
@@ -77,25 +81,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        getFeedList();
-                        try {
-                            Thread.sleep(1500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                swipeRefreshLayout.setRefreshing(false);
-
-                            }
-                        });
-                    }
-                }).start();
-
+                requestListView();
             }
         });
 
@@ -106,39 +92,49 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 Intent intent = new Intent(MainActivity.this, BbsDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("userId",bbsList.get(position).getUserId());
-                bundle.putInt("mainId",bbsList.get(position).getMid());
+                bundle.putInt("userId", bbsList.get(position).getUserId());
+                bundle.putInt("mainId", bbsList.get(position).getMid());
                 bundle.putString("name", bbsList.get(position).getName());
-                bundle.putString("sex",bbsList.get(position).getSex());
-                bundle.putInt("score",bbsList.get(position).getScore());
+                bundle.putString("sex", bbsList.get(position).getSex());
+                bundle.putInt("score", bbsList.get(position).getScore());
                 bundle.putString("title", bbsList.get(position).getTitle());
-                bundle.putString("content",bbsList.get(position).getContent());
-                bundle.putString("sendTime",bbsList.get(position).getSendTime());
+                bundle.putString("content", bbsList.get(position).getContent());
+                bundle.putString("sendTime", bbsList.get(position).getSendTime());
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
+
+        swipeRefreshLayout.setRefreshing(true);
+        requestListView();
 
     }
 
     private void refreshListView(){
         mainAdapter = new MainAdapter(this,bbsList);
         lvMain.setAdapter(mainAdapter);
-        //mainAdapter.notifyDataSetChanged();
 
     }
 
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-        isUserOnLine();
-        if (!isShowing){
-            setUserInfo();
-        }
+    private void requestListView(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getFeedList();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        }).start();
     }
-
 
     @Override
     public void setToolBar() {
@@ -252,6 +248,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     userInfo.edit().clear().commit();
                     SharedPreferences loginInfo = getSharedPreferences(Constants.SHARE_LOGIN_INFO,MODE_PRIVATE);
                     loginInfo.edit().clear().commit();
+                    isShowing = false;
                     MyLog.i(TAG, "已经退出");
                     logoutDialog.dismiss();
                     clearUserInfo();
@@ -290,6 +287,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void setUserInfo(){
         tvName.setText(Constants.userName);
         tvSex.setText(Constants.sex);
+        if (Constants.sex.equals("boy")){
+            imgSex.setImageResource(R.mipmap.boy);
+        }else {
+            imgSex.setImageResource(R.mipmap.girl);
+        }
         MyLog.i(TAG,"name "+Constants.userName+" sex "+Constants.sex);
         isShowing = true;
     }
@@ -297,6 +299,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void clearUserInfo(){
         tvName.setText("");
         tvSex.setText("");
+        Constants.userName = "";
+        Constants.sex = "";
         isShowing = false;
     }
 
@@ -311,5 +315,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onPause() {
         super.onPause();
     }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        isUserOnLine();
+        if (!isShowing){
+            setUserInfo();
+        }
+
+        swipeRefreshLayout.setRefreshing(true);
+        requestListView();
+        MyLog.i(TAG, "is refreshing ... ");
+
+    }
+
+
 
 }

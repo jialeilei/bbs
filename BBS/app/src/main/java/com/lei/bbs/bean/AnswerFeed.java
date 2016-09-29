@@ -21,11 +21,12 @@ public class AnswerFeed {
     private String title;
 
 
-    public AnswerFeed(String name, int score, String sex, String sendTime, String title, String content){
+    public AnswerFeed(int uid,String name, int score, String sex, String sendTime, String title, String content){
         this.name = name;
         this.score = score;
         this.sex = sex;
 
+        this.uid = uid;
         this.sendTime = sendTime;
         this.title = title;
         this.content = content;

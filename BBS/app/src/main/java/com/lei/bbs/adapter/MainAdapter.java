@@ -58,7 +58,7 @@ public class MainAdapter extends BaseAdapter{
 
 		viewHolder.tvName.setText(bbs.getName());
 		viewHolder.tvSendTime.setText(bbs.getSendTime());
-		viewHolder.tvAnswerTimes.setText("" + bbs.getAnswerTimes());
+		viewHolder.tvAnswerTimes.setText("" + bbs.getAnswerNumber());
 		viewHolder.tvTitle.setText(bbs.getTitle());
 		viewHolder.tvContent.setText(bbs.getContent());
 		return view;

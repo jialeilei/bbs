@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_e"
     tools:context=".activity.BbsDetailActivity">
 
     <!-- title -->
@@ -13,23 +14,38 @@
         android:layout_height="wrap_content">
     </com.lei.bbs.util.MyToolBar>
 
-    <LinearLayout
-        android:id="@+id/llListView"
+    <!-- content -->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:background="@color/white">
-        <ListView
-            android:id="@+id/lvDetail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </ListView>
-    </LinearLayout>
+        android:layout_marginBottom="45dp"
 
+        android:layout_below="@+id/toolbar">
+      <!--  android:orientation="vertical"-->
+
+       <!-- <LinearLayout
+            android:id="@+id/llListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="45dp"
+            android:layout_below="@+id/toolbar"
+            android:background="@color/white">-->
+            <ListView
+                android:id="@+id/lvDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ListView>
+        <!--</LinearLayout>-->
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <!-- bottom -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
@@ -44,7 +60,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@id/etContent"
+                android:id="@+id/etContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -58,14 +74,15 @@
             <Button
                 android:id="@+id/btnSend"
                 android:layout_width="70dp"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_answer_selector"
+                android:textColor="@color/gray_a"
                 android:text="发送"/>
         </LinearLayout>
     </FrameLayout>
-
 
 
 </RelativeLayout>

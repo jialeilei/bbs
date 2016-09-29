@@ -25,11 +25,19 @@
             android:gravity="center"
             android:textColor="@color/white"
             android:text="name"/>
+        <ImageView
+            android:id="@+id/imgSex"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/imgHead"
+            android:layout_below="@+id/tvName"/>
         <TextView
             android:id="@+id/tvSex"
-            android:layout_width="80dp"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_toRightOf="@+id/imgHead"
+            android:layout_toRightOf="@+id/imgSex"
             android:layout_below="@+id/tvName"
             android:gravity="center"
             android:textColor="@color/white"

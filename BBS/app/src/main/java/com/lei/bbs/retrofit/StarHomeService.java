@@ -1,7 +1,6 @@
 package com.lei.bbs.retrofit;
 
 
-import com.lei.bbs.bean.AnswerFeedList;
 import com.lei.bbs.bean.BBS;
 import com.lei.bbs.bean.AnswerFeed;
 import com.lei.bbs.bean.Response;
@@ -41,15 +40,15 @@ public interface StarHomeService {
     @FormUrlEncoded
     Call<Response> postMainFeed(@FieldMap Map<String, String> fields);*/
 
-        @GET("mainFeedList.php")
+    @GET("mainFeedList.php")
     Call<ArrayList<BBS>> getFeedList();
 
 
-        @POST("answerFeedList.php")
-        @FormUrlEncoded
-    Call<ArrayList<AnswerFeed>> postAnswerFeedList(@Field("mid") int mid);
-
-  /*  @POST("answerFeedList.php")
+    @POST("answerFeedList.php")
     @FormUrlEncoded
-    Call<AnswerFeedList> postAnswerFeedList(@Field("mid") int mid);*/
+    Call<ArrayList<AnswerFeed>> getAnswerFeedList(@Field("mid") int mid);
+
+    @POST("answerFeed.php")
+    @FormUrlEncoded
+    Call<Response> sendAnswerFeed(@Field("mid") int mid,@Field("uid")int uid,@Field("content")String content);
 }

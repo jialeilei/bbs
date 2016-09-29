@@ -14,25 +14,18 @@ public class BBS {
     private String title;
     private String content;
     private String sendTime;
-
+    private int answerNumber;
     // empty now
-    private int answerTimes;
+
     private String avatar;
 
 
-   /* public BBS(String name,String avatar,String sendTime,int answerTimes,String title,String content ){
-        this.name = name;
-        this.avatar = avatar;
-        this.sendTime = sendTime;
-        this.answerTimes = answerTimes;
-        this.title = title;
-        this.content = content;
-    }*/
 
-    public BBS(String name,String sendTime,int answerTimes,String title,String content ){
+
+    public BBS(String name,String sendTime,int answerNumber,String title,String content ){
         this.name = name;
         this.sendTime = sendTime;
-        this.answerTimes = answerTimes;
+        this.answerNumber = answerNumber;
         this.title = title;
         this.content = content;
     }
@@ -46,12 +39,12 @@ public class BBS {
         this.mid = mid;
     }
 
-    public int getAnswerTimes() {
-        return answerTimes;
+    public int getAnswerNumber() {
+        return answerNumber;
     }
 
-    public void setAnswerTimes(int answerTimes) {
-        this.answerTimes = answerTimes;
+    public void setAnswerNumber(int answerNumber) {
+        this.answerNumber = answerNumber;
     }
 
     public String getContent() {
@@ -118,6 +111,5 @@ public class BBS {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
 
 }

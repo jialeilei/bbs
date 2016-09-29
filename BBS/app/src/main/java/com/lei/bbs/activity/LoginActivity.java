@@ -1,5 +1,6 @@
 package com.lei.bbs.activity;
 
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -17,14 +18,13 @@ import com.lei.bbs.bean.Response;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
 import com.lei.bbs.retrofit.StarHomeService;
-import com.lei.bbs.util.BbsApplication;
 import com.lei.bbs.util.Common;
-import com.lei.bbs.util.EqualEmpty;
 import com.lei.bbs.util.MyLog;
 import com.lei.bbs.util.MyToast;
 import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.Callback;
+
 
 /**
  * create by lei
@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //isUserOnLine();
         initView();
     }
 
@@ -64,13 +65,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
 
-           /* Pair<String ,String> loginInfo = mApp.loadLoginInfo();
-            if (EqualEmpty.isValue(loginInfo.first, loginInfo.second)){
-                edEmail.setText(loginInfo.first);
-                edPassword.setText(loginInfo.second);
-                cbRemember.setChecked(true);
-            }*/
-
             Pair<String ,String> loginInfo = loadLoginInfo();
             if (Common.isEmpty(loginInfo.first, loginInfo.second)){
                 edEmail.setText(loginInfo.first);
@@ -79,6 +73,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
     }
+
+
+    private void isUserOnLine(){
+
+        SharedPreferences user = getSharedPreferences(Constants.SHARE_USER_INFO, MODE_PRIVATE);
+
+        if (user.getInt("id",0)==0
+                ||user.getString("name","").equals("")
+                ||user.getString("sex","").equals("")){
+            MyLog.i(TAG, "没有信息,需要登录");
+
+        }else {
+
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+            LoginActivity.this.finish();
+
+            /* Constants.userId = user.getInt("id",0);
+               Constants.userName = user.getString("name", "");
+               Constants.sex = user.getString("sex","");
+               MyLog.i(TAG, "无需登录");
+               setUserInfo();*/
+        }
+
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -155,12 +175,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     switch (status){
                         case 1: //success
                             MyToast.showShort(LoginActivity.this,"login success");
-                            Constants.onLine = true;
                             //mApp.saveUserInfo(id,name,sex); //储存
                             saveUserInfo(id, name, sex);
-                            Constants.userName = name;
+                           /* Constants.userName = name;
                             Constants.sex = sex;
-                            Constants.userId = id;
+                            Constants.userId = id;*/
                             //Constants.userName =mApp.loadUserInfo().get(1);//name
                             //Constants.sex = mApp.loadUserInfo().get(2);//sex
                             LoginActivity.this.finish();

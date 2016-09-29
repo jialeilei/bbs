@@ -15,5 +15,6 @@
     <color name="transparent">#00000000</color>
     <color name="gray_divider">#EDEDED</color>
     <color name="gray_c">#cccccc</color>
+    <color name="gray_a">#aaaaaa</color>
 
 </resources>
