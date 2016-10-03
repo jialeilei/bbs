@@ -9,9 +9,13 @@
 	if(is_array($rs)){
 
 		if(md5($pwd) == $rs['password']){
-			$arr = array('status' => "1",
-							'id'  => $rs['id'],
-					   'username' => $rs['name'],
+			$arr = array(
+				
+						'status' => "1",
+						'userId'  => $rs['uid'],
+					   'userName' => $rs['name'],
+					   'sex' => $rs['sex'],
+					   'level' => $rs['score'],
 						
 							);
 			echo json_encode($arr);//登陆成功
