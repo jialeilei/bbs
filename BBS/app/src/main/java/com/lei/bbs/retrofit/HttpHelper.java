@@ -13,7 +13,7 @@ public class HttpHelper {
      * @param baseUrl
      * @return Service
      */
-    public static StarHomeService createHubService(String baseUrl){
+    public static RetrofitService createHubService(String baseUrl){
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
@@ -29,14 +29,14 @@ public class HttpHelper {
                         //增加返回值为 json 的支持(以实体类返回)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        return  retrofit.create(StarHomeService.class);
+        return  retrofit.create(RetrofitService.class);
     }
 
     /**
      * @param ipOrUrl
      * @return Service
      */
-    public static StarHomeService createHubService2(String ipOrUrl){
+    public static RetrofitService createHubService2(String ipOrUrl){
         if(!ipOrUrl.startsWith("http://")){
             ipOrUrl="http://"+ipOrUrl;
         }

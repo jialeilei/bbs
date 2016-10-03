@@ -3,6 +3,7 @@
     package="com.lei.bbs">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -19,16 +20,17 @@
         </activity>
         <activity
             android:name=".activity.BbsDetailActivity"
-            android:windowSoftInputMode="adjustPan"/><!--防止EditText被软键盘覆盖-->
-        <!--android:windowSoftInputMode="stateVisible|adjustPan"-->
+            android:windowSoftInputMode="adjustPan" />
+        <!-- 防止EditText被软键盘覆盖 -->
+        <!-- android:windowSoftInputMode="stateVisible|adjustPan" -->
 
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.ToolBarActivity1" />
         <activity android:name=".activity.ToolBarActivity2" />
-        <activity android:name=".activity.BaseActivity"/>
-
-        <activity android:name=".activity.WriteFeedActivity"></activity>
+        <activity android:name=".activity.BaseActivity" />
+        <activity android:name=".activity.WriteFeedActivity" />
+        <activity android:name=".activity.UserInfoActivity"></activity>
     </application>
 
 </manifest>

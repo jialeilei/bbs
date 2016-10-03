@@ -1,11 +1,9 @@
 package com.lei.bbs.activity;
 
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,7 +11,7 @@ import android.widget.Toast;
 import com.lei.bbs.R;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
-import com.lei.bbs.retrofit.StarHomeService;
+import com.lei.bbs.retrofit.RetrofitService;
 import com.lei.bbs.util.MyToast;
 import com.lei.bbs.util.MyToolBar;
 
@@ -98,7 +96,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
     private void gotoRegister(String email,String password){
 
-        StarHomeService service = HttpHelper.createHubService2(Constants.base_url);
+        RetrofitService service = HttpHelper.createHubService2(Constants.base_url);
         HashMap<String,String> params=new HashMap<>();
         params.put("name",email);
         params.put("pwd", password);

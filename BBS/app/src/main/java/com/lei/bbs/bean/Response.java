@@ -8,7 +8,7 @@ public class Response {
 
     private String status;
     private String result;
-    private String level;
+    private int level;
 
 
     public int getUserId() {
@@ -40,11 +40,11 @@ public class Response {
         return status;
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 

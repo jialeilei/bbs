@@ -14,7 +14,7 @@ import com.lei.bbs.adapter.DetailAdapter;
 import com.lei.bbs.bean.AnswerFeed;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
-import com.lei.bbs.retrofit.StarHomeService;
+import com.lei.bbs.retrofit.RetrofitService;
 import com.lei.bbs.util.Common;
 import com.lei.bbs.util.MyLog;
 import com.lei.bbs.util.MyToast;
@@ -165,7 +165,7 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
 
 
     private void sendAnswerFeed(int mid,int uid,String content){
-        StarHomeService service = HttpHelper.createHubService(Constants.base_url);
+        RetrofitService service = HttpHelper.createHubService(Constants.base_url);
         Call<com.lei.bbs.bean.Response> sendFeed = service.sendAnswerFeed(mid, uid, content);
         sendFeed.enqueue(new Callback<com.lei.bbs.bean.Response>() {
             @Override
@@ -187,7 +187,7 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
 
     private void getAnswerFeedList(int mid){
 
-        StarHomeService service = HttpHelper.createHubService(Constants.base_url);
+        RetrofitService service = HttpHelper.createHubService(Constants.base_url);
         Call<ArrayList<AnswerFeed>>  feedList = service.getAnswerFeedList(mid);
         feedList.enqueue(new Callback<ArrayList<AnswerFeed>>() {
             @Override

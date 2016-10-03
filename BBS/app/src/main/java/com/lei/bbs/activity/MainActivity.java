@@ -15,13 +15,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.lei.bbs.R;
 import com.lei.bbs.adapter.MainAdapter;
 import com.lei.bbs.bean.BBS;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
-import com.lei.bbs.retrofit.StarHomeService;
+import com.lei.bbs.retrofit.RetrofitService;
 import com.lei.bbs.util.CircleImage;
 import com.lei.bbs.util.Common;
 import com.lei.bbs.util.MyToolBar;
@@ -32,17 +33,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     //list
     private List<BBS> bbsList = new ArrayList<BBS>();
     //view
     private CircleImage imgHead;
+    private RelativeLayout rlHead;
     private ImageButton imgSetting, imgWrite;
     private ListView lvMain;
     private DrawerLayout drawerLayout;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private TextView tvName,tvSex;
+    private TextView tvName, tvLevel;
     private Button btnLogout;
     private ImageView imgSex;
     //others
@@ -64,9 +67,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         imgHead = (CircleImage) findViewById(R.id.imgHead);
-        imgHead.setOnClickListener(this);
+
+        rlHead = (RelativeLayout) findViewById(R.id.rlHeadContent);
+        rlHead.setOnClickListener(this);
         tvName = (TextView) findViewById(R.id.tvName);
-        tvSex = (TextView) findViewById(R.id.tvSex);
+        tvLevel = (TextView) findViewById(R.id.tvLevel);
         imgSex = (ImageView) findViewById(R.id.imgSex);
 
         lvMain = (ListView) findViewById(R.id.lvMain);
@@ -175,7 +180,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
     private void getFeedList(){
-        StarHomeService service = HttpHelper.createHubService(Constants.base_url);
+        RetrofitService service = HttpHelper.createHubService(Constants.base_url);
         Call<ArrayList<BBS>>  getList = service.getFeedList();
         getList.enqueue(new Callback<ArrayList<BBS>>() {
             @Override
@@ -207,11 +212,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
 
                 break;
-            case R.id.imgHead:
-                showBelowDialog();
-
+            /*case R.id.imgHead:
                 isUserOnLine();
 
+                break;*/
+            case R.id.rlHeadContent:
+                Intent intent = new Intent(MainActivity.this,UserInfoActivity.class);
+                startActivity(intent);
+                MyLog.i(TAG,"rlHeadContent was clicked ");
                 break;
             default:
 
@@ -219,9 +227,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-    private void showBelowDialog(){
-
-    }
 
     private void showLogoutDialog(){
         View view = getLayoutInflater().inflate(R.layout.dialog_logout,null);
@@ -275,6 +280,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 Constants.userId = user.getInt("id",0);
                 Constants.userName = user.getString("name", "");
                 Constants.sex = user.getString("sex","");
+                Constants.level = user.getInt("level", 1);
+                Constants.avatar = user.getString(Constants.SHARE_AVATAR,"");
                 MyLog.i(TAG, "无需登录");
                 setUserInfo();
             }
@@ -283,14 +290,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-
     private void setUserInfo(){
         tvName.setText(Constants.userName);
-        tvSex.setText(Constants.sex);
+        tvLevel.setText("LV."+Common.scoreToLevel(Constants.level));
         if (Constants.sex.equals("boy")){
             imgSex.setImageResource(R.mipmap.boy);
         }else {
             imgSex.setImageResource(R.mipmap.girl);
+        }
+        if (!Constants.avatar.equals("")){
+            imgHead.setImageBitmap(Common.stringToBitMap(Constants.avatar));
         }
         MyLog.i(TAG,"name "+Constants.userName+" sex "+Constants.sex);
         isShowing = true;
@@ -298,7 +307,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void clearUserInfo(){
         tvName.setText("");
-        tvSex.setText("");
+        tvLevel.setText("");
         Constants.userName = "";
         Constants.sex = "";
         isShowing = false;

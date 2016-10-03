@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    tools:context="com.lei.bbs.activity.UserInfoActivity">
+
+    <!-- title -->
+    <com.lei.bbs.util.MyToolBar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.lei.bbs.util.MyToolBar>
+
+    <!-- head -->
+    <RelativeLayout
+        android:id="@+id/rlHeadContent"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:background="@drawable/selector_relative_layout"
+        android:layout_below="@+id/toolbar"
+        android:clickable="true">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/right_gray_a"/>
+
+        <com.lei.bbs.util.CircleImage
+            android:id="@+id/imgHead"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="25dp"
+            android:src="@mipmap/head"/>
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/imgHead"
+            android:gravity="center"
+            android:textColor="@color/gray_a"
+            android:text="name"/>
+
+    </RelativeLayout>
+
+    <!-- sex -->
+    <RelativeLayout
+        android:id="@+id/rlSex"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/rlHeadContent"
+        android:background="@drawable/selector_relative_layout"
+        android:orientation="horizontal"
+        android:clickable="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginLeft="20dp"
+            android:text="性别"/>
+        <TextView
+            android:id="@+id/tvSex"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="sex"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/right_gray_a"/>
+
+    </RelativeLayout>
+
+
+    <!-- level -->
+    <RelativeLayout
+        android:id="@+id/rlLevel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/rlSex"
+        android:background="@drawable/selector_relative_layout"
+        android:orientation="horizontal"
+        android:clickable="true">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginLeft="20dp"
+            android:text="等级"/>
+
+        <TextView
+            android:id="@+id/tvLevel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="level"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/right_gray_a"/>
+
+    </RelativeLayout>
+
+    <!-- blank -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="1dp"
+        android:layout_below="@+id/rlLevel"
+        android:background="@color/white">
+
+        <!--<com.lei.bbs.util.CircleImage
+            android:id="@+id/imgTest"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="25dp"
+            android:src="@mipmap/head"/>-->
+    </RelativeLayout>
+
+</RelativeLayout>

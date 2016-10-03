@@ -17,7 +17,7 @@ import com.lei.bbs.R;
 import com.lei.bbs.bean.Response;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
-import com.lei.bbs.retrofit.StarHomeService;
+import com.lei.bbs.retrofit.RetrofitService;
 import com.lei.bbs.util.Common;
 import com.lei.bbs.util.MyLog;
 import com.lei.bbs.util.MyToast;
@@ -145,10 +145,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return new Pair<String,String>(loginPreference.getString(Constants.SHARE_NAME, ""),loginPreference.getString(Constants.SHARE_PASSWORD,""));
     }
 
-    public void saveUserInfo(int id,String name,String sex){
+    public void saveUserInfo(int id,int level,String name,String sex){
         SharedPreferences userPreferences = getSharedPreferences(Constants.SHARE_USER_INFO, MODE_PRIVATE);
         SharedPreferences.Editor editor = userPreferences.edit();
         editor.putInt("id",id);
+        editor.putInt("level",level);
         editor.putString("name", name);
         editor.putString("sex", sex);
         editor.commit();
@@ -156,7 +157,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void gotoLogin(String email,String password){
-        StarHomeService service = HttpHelper.createHubService(Constants.base_url);
+        RetrofitService service = HttpHelper.createHubService(Constants.base_url);
         HashMap<String,String> params = new HashMap<>();
         params.put("name",email);
         params.put("pwd", password);
@@ -169,6 +170,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (response.body().getStatus() != null){
                     int status = Integer.parseInt(response.body().getStatus());
                     int id = response.body().getUserId();
+                    int level = response.body().getLevel();
                     MyLog.i("lei","id: "+id);
                     String sex = response.body().getSex();
                     String name = response.body().getUserName();
@@ -176,7 +178,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         case 1: //success
                             MyToast.showShort(LoginActivity.this,"login success");
                             //mApp.saveUserInfo(id,name,sex); //储存
-                            saveUserInfo(id, name, sex);
+                            saveUserInfo(id,level, name, sex);
                            /* Constants.userName = name;
                             Constants.sex = sex;
                             Constants.userId = id;*/

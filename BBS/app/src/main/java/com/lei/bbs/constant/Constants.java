@@ -6,15 +6,16 @@ package com.lei.bbs.constant;
 
 public class Constants {
 
-    public static String base_url="http://192.168.0.180/bbsServer/";
+    public static String base_url="http://192.168.0.130/bbsServer/";
 
     public static boolean onLine = false;
 
     //user info
     public static int userId = 0;
     public static String userName = "";
-    public static String level = "";
+    public static int level =1;
     public static String sex = "";
+    public static String avatar = "";
 
     //loginInfo
     public static String SHARE_LOGIN_INFO = "loginInfo";
@@ -24,6 +25,7 @@ public class Constants {
     public static String SHARE_USER_INFO = "userInfo";
     public static String SHARE_ID = "userInfo";
     public static String SHARE_SEX = "userInfo";
+    public static String SHARE_AVATAR = "imgHead";
 
 
 

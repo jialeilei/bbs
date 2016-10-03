@@ -16,5 +16,6 @@
     <color name="gray_divider">#EDEDED</color>
     <color name="gray_c">#cccccc</color>
     <color name="gray_a">#aaaaaa</color>
+    <color name="bg_gray">#eeeeee</color>
 
 </resources>

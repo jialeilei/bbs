@@ -10,9 +10,8 @@ import com.lei.bbs.R;
 import com.lei.bbs.bean.Response;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.HttpHelper;
-import com.lei.bbs.retrofit.StarHomeService;
+import com.lei.bbs.retrofit.RetrofitService;
 import com.lei.bbs.util.Common;
-import com.lei.bbs.util.EqualEmpty;
 import com.lei.bbs.util.MyLog;
 import com.lei.bbs.util.MyToast;
 import com.lei.bbs.util.MyToolBar;
@@ -86,7 +85,7 @@ public class WriteFeedActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void sendFeed(int userId,String title,String content){
-        StarHomeService service = HttpHelper.createHubService(Constants.base_url);
+        RetrofitService service = HttpHelper.createHubService(Constants.base_url);
 
         Call<Response> write = service.postMainFeed(userId,title,content);
         write.enqueue(new Callback<Response>() {
