@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import com.lei.bbs.util.MyToolBar;
 
-
 /**
  * create by lei 2016/09/21
  */

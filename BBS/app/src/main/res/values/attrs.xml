@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+     <declare-styleable name="ListLinearLayout">
+        <attr name="maxItemCount" format="integer" />
+     	<attr name="moreTextColor" format="color|reference"></attr>
+     	<attr name="moreBackgroundColor" format="color|reference"></attr>
+    </declare-styleable>
 
-    <!--<declare-styleable name="MyToolBar">
-        <attr name="android:background"/>
-        <attr name="enableTvLeft" format="boolean"></attr>
-        <attr name="enableTvRight" format="boolean"></attr>
-        <attr name="disableRightView" format="boolean"></attr>
-        <attr name="enableGoBackEvent" format="boolean"></attr>
-    </declare-styleable>-->
 
 
 </resources>

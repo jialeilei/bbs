@@ -1,11 +1,12 @@
 package com.lei.bbs.bean;
 
 
+
 /**
  * Created by lei on 2016/9/6.
  */
 
-public class AnswerFeed {
+public class AnswerFeed extends Entity{
 
     private int aid;
     private int uid;
@@ -21,7 +22,8 @@ public class AnswerFeed {
     private String title;
 
 
-    public AnswerFeed(int uid,String name, int score, String sex, String sendTime, String title, String content){
+    public AnswerFeed(int aid,int uid,String name, int score, String sex, String sendTime, String title, String content){
+        this.aid = aid;
         this.name = name;
         this.score = score;
         this.sex = sex;
