@@ -7,7 +7,7 @@
 	$query=mysql_query($sql);
 	$n=0;
 	while ($row=mysql_fetch_array($query)) {
-		$feedList[$n++] = array( 'aid' => $row['aid'],
+		$arr[$n++] = array( 'aid' => $row['aid'],
 							'content' => $row['content'],
 							'sendTime' => $row['answertime'],
 							'score' => $row['score'],
@@ -17,5 +17,5 @@
 							);
 	}
 		//输出字符串数组
-		echo json_encode($feedList);
+		echo json_encode($arr);
 ?>
