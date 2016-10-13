@@ -2,85 +2,42 @@ package com.lei.bbs.adapter;
 
 
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import com.lei.bbs.R;
-import com.lei.bbs.activity.BbsDetailActivity;
 import com.lei.bbs.bean.AnswerFeed;
 import com.lei.bbs.bean.TalkFeed;
-import com.lei.bbs.util.ChildListView;
 import com.lei.bbs.util.ListLinearLayout;
 import com.lei.bbs.util.MyLog;
-import com.lei.bbs.util.Utility;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class DetailAdapter extends BaseObjectListAdapter{
-	private List<AnswerFeed> bbsList;
 	private String TAG = "DetailAdapter";
+	List<AnswerFeed> bbsList = new ArrayList<AnswerFeed>();
 	private List<TalkFeed> mChildList = new ArrayList<TalkFeed>();
 	private List<TalkFeed> mChildList2 = new ArrayList<TalkFeed>();
 	public static int mParentItem = -1;
 	public static boolean mbShowChild = false;
-	private BbsDetailActivity mBbsDetailActivity = new BbsDetailActivity();
-
-
-	private void initData() {
-		/*mChildList = new ArrayList<TalkFeed>();
-		mChildList.clear();*/
-		mChildList.clear();
-		for (int i = 0; i < 5; i++) {
-			//int tid,int uid,String uname,int mid,int aid,int to_tid,String to_tname,String content,String talktime
-			mChildList.add(new TalkFeed(5,5," uname",11,i+2,0,"","content","20161006"));
-		}
-	}
 
 
 	public DetailAdapter(Context context, List<AnswerFeed> bbsList,List<TalkFeed> childList){
 		super(context,bbsList);
-		this.mContext = context;
 		this.bbsList=bbsList;
 		this.mChildList = childList;
 		//initData();
 
 	}
-	/*public DetailAdapter(Context context, List<AnswerFeed> bbsList,int mid){
-		this.context=context;
-		this.bbsList=bbsList;
-		//initData();
-		getTalkFeedListData(mid);
-	}*/
-
-	@Override
-	public int getCount() {
-		return bbsList.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		return bbsList.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		final AnswerFeed bbs = bbsList.get(position);
+		final AnswerFeed bbs = (AnswerFeed) getData().get(position);
+		//List<AnswerFeed> bbsList = (List<AnswerFeed>) getData();
 		View view;
 		final ViewHolder viewHolder;
 		if (convertView == null) {
@@ -127,7 +84,6 @@ public class DetailAdapter extends BaseObjectListAdapter{
 
 			if (bbsList.get(position).getUid() == bbsList.get(0).getUid()){
 				viewHolder.tvTopFloor.setVisibility(View.VISIBLE);
-				MyLog.i("DetailAdapter","bbs.uid: "+bbs.getUid()+" bbsList.uid: "+bbsList.get(0).getUid());
 			}
 		}
 
@@ -147,7 +103,7 @@ public class DetailAdapter extends BaseObjectListAdapter{
 			if (bbsList.get(position).getAid() == mChildList.get(i).getAid()){
 				mChildList2.add(mChildList.get(i));
 			}
-			MyLog.i(TAG,"i: "+i+" bbs aid: "+bbsList.get(position).getAid()+" child list aid: "+mChildList.get(i).getAid());
+			//MyLog.i(TAG,"i: "+i+" bbs aid: "+bbsList.get(position).getAid()+" child list aid: "+mChildList.get(i).getAid());
 		}
 
 		if (mChildList2.size() > 0){
@@ -155,6 +111,14 @@ public class DetailAdapter extends BaseObjectListAdapter{
 			ChildAdapter tempAdapt = new ChildAdapter(mContext, mChildList2);
 			viewHolder.listLinearLayout.setAdapter(tempAdapt);
 			viewHolder.llTalk.setVisibility(View.VISIBLE);
+			tempAdapt.setOnChildAdapterListener(new ChildAdapter.onChildAdapterListener() {
+				@Override
+				public void talkFeed(TalkFeed talkFeed) {
+					if (mOnAnswerFeedListener != null){
+						mOnAnswerFeedListener.talkFeed(talkFeed);
+					}
+				}
+			});
 		}else {
 			viewHolder.llTalk.setVisibility(View.GONE);
 		}
@@ -201,6 +165,7 @@ public class DetailAdapter extends BaseObjectListAdapter{
 
 	public interface OnAnswerFeedListener{
 		void answerFeed(AnswerFeed answerFeed);
+		void talkFeed(TalkFeed talkFeed);
 	}
 
 	public void setAnswerFeedListener(OnAnswerFeedListener m){

@@ -31,6 +31,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Observable;
 
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener{
@@ -74,6 +75,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         switch (v.getId()){
             case R.id.rlHeadContent:
                 chooseHeadDialog();
+                break;
+            case R.id.rlSex:
+                Intent intent = new Intent(this,ImageLoaderActivity.class);
+                startActivity(intent);
                 break;
 /*
             case R.id.imgTest:

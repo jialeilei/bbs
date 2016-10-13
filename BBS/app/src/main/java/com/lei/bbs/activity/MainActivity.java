@@ -29,12 +29,15 @@ import com.lei.bbs.util.MyToolBar;
 import com.lei.bbs.util.MyLog;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener ,Observer{
 
     //list
     private List<BBS> bbsList = new ArrayList<BBS>();
@@ -342,5 +345,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
+    @Override
+    public void update(Observable observable, Object data) {
 
+    }
 }

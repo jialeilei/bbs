@@ -31,6 +31,7 @@ import retrofit2.Response;
 
 /**
  * create by lei
+ *
  */
 
 public class BbsDetailActivity extends BaseActivity implements View.OnClickListener{
@@ -47,12 +48,13 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
     private List<AnswerFeed> answerFeedList = new ArrayList<AnswerFeed>();
     private List<TalkFeed> mChildList = new ArrayList<TalkFeed>();
     private List<AnswerFeed> answerFeedList2 = new ArrayList<AnswerFeed>();
-    private Handler handler = new Handler();
+    public Handler detailActivityHandler = new Handler();
     //mainInfo
-    private int uid,mid,score;
-    private String name,sex,title,content,time;
+    private int uid,mid,mScore;
+    private String mName,mSex,mTitle,mContent,mTime;
     private int answerModel = 0;//被回复的用户id，默认回复楼主
-    private AnswerFeed answerInfo;
+    private AnswerFeed answerFeedInfo;
+    private TalkFeed talkFeedInfo;
 
 
     @Override
@@ -74,7 +76,7 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
         if (answerFeedList.size() > 0){
             answerFeedList.clear();
         }
-        answerFeedList.add(new AnswerFeed(0,uid, name, Common.scoreToLevel(score), sex, time, title, content));
+        answerFeedList.add(new AnswerFeed(0,uid, mName, Common.scoreToLevel(mScore), mSex, mTime, mTitle, mContent));
         lvDetail = (ListView) findViewById(R.id.lvDetail);
         detailAdapter = new DetailAdapter(this, answerFeedList,mChildList);
         lvDetail.setAdapter(detailAdapter);
@@ -108,16 +110,27 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.btnSend:
                 if (!etContent.getText().toString().equals("")){
-                    if (answerModel == 0){
-                        sendAnswerFeed(mid,Constants.userId,etContent.getText().toString());
-                    }else {
-                        //int uid, String uname, int mid, int aid, int to_tid, String to_tname, String content
-                        sendTalkFeed(
-                                Constants.userId, Constants.userName, mid, answerInfo.getAid(),
-                                0, 0+"", etContent.getText().toString());
-                    }
 
+                    switch (answerModel){
+                        case 0://回复楼主
+                            sendAnswerFeed(mid,Constants.userId,etContent.getText().toString());
+                            break;
+                        case 1://回复层主
+                            //int uid, String uname, int mid, int aid, int to_tid, String to_tname, String content
+                            sendTalkFeed(
+                                    Constants.userId, Constants.userName, mid, answerFeedInfo.getAid(),
+                                    0, 0+"", etContent.getText().toString());
+                            break;
+                        case 2://回复二级评论
+                            sendTalkFeed(
+                                    Constants.userId, Constants.userName, mid, talkFeedInfo.getAid(),
+                                    talkFeedInfo.getUid(), talkFeedInfo.getUname(), etContent.getText().toString());
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                recoverEditText();//防止重复发送内容
                 break;
             default:
 
@@ -129,11 +142,12 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
         Bundle bundle = this.getIntent().getExtras();
         uid = bundle.getInt("userId");//楼主id
         mid = bundle.getInt("mainId");
-        name = bundle.getString("name");
-        title = bundle.getString("title");
-        content = bundle.getString("content");
-        time = bundle.getString("sendTime");
-        sex = bundle.getString("sex");
+        mName = bundle.getString("name");
+        mTitle = bundle.getString("title");
+        mContent = bundle.getString("content");
+        mTime = bundle.getString("sendTime");
+        mSex = bundle.getString("sex");
+        mScore = bundle.getInt("score");
     }
 
     public void refreshListView(){
@@ -155,18 +169,42 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
     private void adapterListener(){
         detailAdapter.setAnswerFeedListener(new DetailAdapter.OnAnswerFeedListener() {
             @Override
-            public void answerFeed(AnswerFeed answerFeed) {
+            public void answerFeed(AnswerFeed answerFeed) {//回复层主
 
+               /* if (isMyself(answerFeed.getUid())){
+                    MyLog.i(TAG,"myself");
+                    return;
+                }*/
                 MyLog.i(TAG, "uName: " + answerFeed.getName() + " aid: " + answerFeed.getAid());
-                answerInfo = answerFeed;
+                BbsDetailActivity.this.answerFeedInfo = answerFeed;
                 setAnswerModel(1, answerFeed.getName());
+            }
 
+            @Override
+            public void talkFeed(TalkFeed talkFeed) {//回复二级评论者
+                if (isMyself(talkFeed.getUid())){
+                    MyLog.i(TAG,"myself");
+                    return;
+                }
+                BbsDetailActivity.this.talkFeedInfo = talkFeed;
+                MyLog.i(TAG, "回复:" + talkFeed.getUname() + "的内容");
+                setAnswerModel(2, talkFeed.getUname());
             }
         });
     }
 
+    private boolean isMyself(int id){
+        //是否自己评论自己
+        if (Constants.userId == id){
+            answerModel = 4;
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     private void setAnswerModel(int model,String toName){
-        //0:楼主  1：楼中楼
+        //0:回复楼主  1：回复层主 2：回复二级评论者
         answerModel = model;
         if (answerModel == 0){
             toName = "楼主";
@@ -196,7 +234,7 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                handler.post(new Runnable() {
+                detailActivityHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         swipeRefreshLayout.setRefreshing(false);
@@ -211,7 +249,7 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
         if (answerFeedList.size() > 0){
             answerFeedList.clear();
         }
-        answerFeedList.add(new AnswerFeed(0,uid,name,Common.scoreToLevel(score),sex,time,title,content));
+        answerFeedList.add(new AnswerFeed(0,uid,mName,Common.scoreToLevel(mScore),mSex,mTime,mTitle,mContent));
         for (int i = 0; i < feeds.size(); i++) {
             answerFeedList.add(new AnswerFeed(
                     feeds.get(i).getAid(),

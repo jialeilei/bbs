@@ -3,7 +3,7 @@
     package="com.lei.bbs">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -30,7 +30,8 @@
         <activity android:name=".activity.ToolBarActivity2" />
         <activity android:name=".activity.BaseActivity" />
         <activity android:name=".activity.WriteFeedActivity" />
-        <activity android:name=".activity.UserInfoActivity"></activity>
+        <activity android:name=".activity.UserInfoActivity" />
+        <activity android:name=".activity.ImageLoaderActivity"></activity>
     </application>
 
 </manifest>

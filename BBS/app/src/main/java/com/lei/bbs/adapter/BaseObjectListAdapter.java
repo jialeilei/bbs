@@ -15,24 +15,24 @@ public class BaseObjectListAdapter extends BaseAdapter {
 
 	protected Context mContext;
 	protected LayoutInflater mInflater;
-	protected List<? extends Entity> mDatas = new ArrayList<Entity>();
+	protected List<? extends Entity> mData = new ArrayList<Entity>();
 
 	public BaseObjectListAdapter(Context context, List<? extends Entity> datas) {
 		mContext = context;
 		mInflater = LayoutInflater.from(context);
 		if (datas != null) {
-			mDatas = datas;
+			mData = datas;
 		}
 	}
 
 	@Override
 	public int getCount() {
-		return mDatas.size();
+		return mData.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return mDatas.get(position);
+		return mData.get(position);
 	}
 
 	@Override
@@ -45,8 +45,8 @@ public class BaseObjectListAdapter extends BaseAdapter {
 		return null;
 	}
 
-	public List<? extends Entity> getDatas() {
-		return mDatas;
+	public List<? extends Entity> getData() {
+		return mData;
 	}
 
 }

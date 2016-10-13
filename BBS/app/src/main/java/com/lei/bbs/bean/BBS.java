@@ -4,7 +4,7 @@ package com.lei.bbs.bean;
  * Created by lei on 2016/9/5.
  */
 
-public class BBS {
+public class BBS extends Entity{
 
     private int userId;
     private int mid; //main feed id
