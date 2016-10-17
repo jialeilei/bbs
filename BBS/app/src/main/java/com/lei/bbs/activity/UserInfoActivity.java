@@ -24,6 +24,7 @@ import com.lei.bbs.R;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.retrofit.RetrofitUtil;
 import com.lei.bbs.util.Common;
+import com.lei.bbs.util.ImageLoader;
 import com.lei.bbs.util.MyLog;
 import com.lei.bbs.util.MyToolBar;
 import java.io.File;
@@ -42,13 +43,14 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private ImageView imgHead,imgTest;
     private TextView tvSex,tvLevel,tvName;
     private RetrofitUtil retrofitUtil = new RetrofitUtil();
+    private ImageLoader mImageLoader;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
-
+        mImageLoader = ImageLoader.build(this);
         setToolBar();
         initView();
     }
@@ -90,14 +92,15 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         }
     }
 
-    private void saveBitmapToSharedPreferences(Bitmap bitmap){
+    //上传图片时，本地不进行存储
+    /*private void saveBitmapToSharedPreferences(Bitmap bitmap){
         //Bitmap bitmap=BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
         //第一步:将Bitmap压缩至字节数组输出流ByteArrayOutputStream
-       /* ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+       *//* ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
         //第二步:利用Base64将字节数组输出流中的数据转换成字符串String
         byte[] byteArray=byteArrayOutputStream.toByteArray();
-        String imageString=new String(Base64.encodeToString(byteArray, Base64.DEFAULT));*/
+        String imageString=new String(Base64.encodeToString(byteArray, Base64.DEFAULT));*//*
         //第三步:将String保持至SharedPreferences
 
         Constants.avatar = Common.bitmapToString(bitmap);
@@ -106,7 +109,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         editor.putString(Constants.SHARE_AVATAR, Common.bitmapToString(bitmap));
         editor.commit();
     }
-
+*/
 
     /**
      * 从SharedPreferences中取出Bitmap
@@ -114,7 +117,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private Bitmap getBitmapFromSharedPreferences(){
         SharedPreferences sharedPreferences=getSharedPreferences(Constants.SHARE_USER_INFO, Context.MODE_PRIVATE);
         //第一步:取出字符串形式的Bitmap
-        String imageString=sharedPreferences.getString(Constants.SHARE_AVATAR, "");
+        String imageString=sharedPreferences.getString("avatar", "");
         //第二步:利用Base64将字符串转换为ByteArrayInputStream
        /* byte[] byteArray=Base64.decode(imageString, Base64.DEFAULT);
         ByteArrayInputStream byteArrayInputStream=new ByteArrayInputStream(byteArray);
@@ -124,18 +127,19 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void showUserInfo(){
-        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARE_USER_INFO, Context.MODE_PRIVATE);
-        String head = sharedPreferences.getString(Constants.SHARE_AVATAR, "");
+        //SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARE_USER_INFO, Context.MODE_PRIVATE);
+        //String head = sharedPreferences.getString("avatar", "");
 
         tvName.setText(Constants.userName);
         tvLevel.setText("LV."+Common.scoreToLevel(Constants.level));
         tvSex.setText(Constants.sex);
 
         if (!Constants.avatar.equals("")){
-            imgHead.setImageBitmap(Common.stringToBitMap(Constants.avatar));
+            mImageLoader.bindBitmap(Constants.base_url+Constants.avatar,imgHead,150,150);
+        }else {
+            imgHead.setImageResource(R.mipmap.head);
         }
-        MyLog.i(TAG,"name "+Constants.userName+" sex "+Constants.sex);
-
+        MyLog.i(TAG,"name "+Constants.userName+" sex "+Constants.sex+" avatar "+Constants.avatar);
     }
 
     private void setUserInfo(){
@@ -265,7 +269,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                     try {
                         MyLog.i(TAG, "img uri: " + imageUri);
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                        saveBitmapToSharedPreferences(bitmap);
+                        //saveBitmapToSharedPreferences(bitmap);
                         imgHead.setImageBitmap(bitmap);
                         sendHead2Server(Constants.userId, bitmap);
                     }catch (Exception e){
@@ -295,8 +299,8 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        sendHead2Server(Constants.userId,bitmap);
-                        saveBitmapToSharedPreferences(bitmap);
+                        sendHead2Server(Constants.userId, bitmap);
+                        //saveBitmapToSharedPreferences(bitmap);
 
                     }
 

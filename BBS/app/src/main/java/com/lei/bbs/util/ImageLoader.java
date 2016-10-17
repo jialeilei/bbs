@@ -48,12 +48,14 @@ public class ImageLoader {
     private static final int MAXIMUM_POOR_SIZE = CPU_COUNT * 2 + 1;//最大线程数
     private static final long KEEP_ALIVE = 10L;
 
-    private static final int TAG_KEY_URI = R.id.imageloader_uri;
+    private static final int TAG_KEY_URI = R.id.imageloader_uri;//类型为ID
     private static final long DISK_CACHE_SIZE = 1024 * 1024 * 50;
     private static final int IO_BUFFER_SIZE = 8 * 1024;
-    private static final int DISK_CACHE_INDEX = 0;
+    private static final int DISK_CACHE_INDEX = 0;//open方法里面设置了一个节点只能有一个数据
     private boolean mIsDiskLruCacheCreated = false;
 
+
+    //为线程池提供创建新线程的功能
     private static final ThreadFactory sThreadFactory = new ThreadFactory() {
         private final AtomicInteger mCount = new AtomicInteger(1);
 
@@ -94,7 +96,7 @@ public class ImageLoader {
         mMemoryCache = new LruCache<String,Bitmap>(cacheSize){
             @Override
             protected int sizeOf(String key, Bitmap bitmap) {
-                return bitmap.getRowBytes()*bitmap.getHeight() / 1024;
+                return bitmap.getRowBytes()*bitmap.getHeight() / 1024;//单位kb,对bitmap对象大小的计算
             }
         };
 
@@ -105,7 +107,6 @@ public class ImageLoader {
         if (getUsableSpace(diskCacheDir) > DISK_CACHE_SIZE){
             try{
                 mDiskLruCache = com.lei.bbs.libcore.io.DiskLruCache.open(diskCacheDir, 1, 1, DISK_CACHE_SIZE);
-                //DiskLruCache.create(,diskCacheDir,1,1,DISK_CACHE_SIZE)
                 mIsDiskLruCacheCreated = true;
             }catch (IOException e){
                 e.printStackTrace();

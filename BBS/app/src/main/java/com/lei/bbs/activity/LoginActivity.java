@@ -37,14 +37,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText edEmail,edPassword;
     private ImageView imgLeft;
     private CheckBox cbRemember;
-    //BbsApplication mApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //isUserOnLine();
         initView();
     }
 
@@ -63,14 +61,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         edPassword = (EditText) findViewById(R.id.edPassword);
         cbRemember = (CheckBox) findViewById(R.id.cbRemember);
 
-
-
-            Pair<String ,String> loginInfo = loadLoginInfo();
-            if (Common.isEmpty(loginInfo.first, loginInfo.second)){
-                edEmail.setText(loginInfo.first);
-                edPassword.setText(loginInfo.second);
-                cbRemember.setChecked(true);
-            }
+        Pair<String ,String> loginInfo = loadLoginInfo();
+        if (Common.isEmpty(loginInfo.first, loginInfo.second)){
+            edEmail.setText(loginInfo.first);
+            edPassword.setText(loginInfo.second);
+            cbRemember.setChecked(true);
+        }
 
     }
 
@@ -107,10 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (edPassword.getText().toString().equals("") || edEmail.getText().toString().equals("")){
                     MyToast.showLong(this,"用户名或密码不能为空");
                 }else {
-                    if (cbRemember.isChecked()) {
-                        saveLoginInfo(edEmail.getText().toString(),edPassword.getText().toString());
-                        //mApp.saveLoginInfo(edEmail.getText().toString(),edPassword.getText().toString());
-                    }
+
                     gotoLogin(edEmail.getText().toString(),edPassword.getText().toString());
                 }
 
@@ -145,13 +138,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return new Pair<String,String>(loginPreference.getString(Constants.SHARE_NAME, ""),loginPreference.getString(Constants.SHARE_PASSWORD,""));
     }
 
-    public void saveUserInfo(int id,int level,String name,String sex){
+    public void saveUserInfo(int id,int level,String name,String sex,String avatar){
         SharedPreferences userPreferences = getSharedPreferences(Constants.SHARE_USER_INFO, MODE_PRIVATE);
         SharedPreferences.Editor editor = userPreferences.edit();
         editor.putInt("id",id);
         editor.putInt("level",level);
         editor.putString("name", name);
         editor.putString("sex", sex);
+        editor.putString("avatar", avatar);
         editor.commit();
 
     }
@@ -171,19 +165,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     int status = Integer.parseInt(response.body().getStatus());
                     int id = response.body().getUserId();
                     int level = response.body().getLevel();
+                    String avatar = response.body().getAvatar();
                     MyLog.i("lei","id: "+id);
                     String sex = response.body().getSex();
                     String name = response.body().getUserName();
                     switch (status){
                         case 1: //success
                             MyToast.showShort(LoginActivity.this,"login success");
-                            //mApp.saveUserInfo(id,name,sex); //储存
-                            saveUserInfo(id,level, name, sex);
-                           /* Constants.userName = name;
-                            Constants.sex = sex;
-                            Constants.userId = id;*/
-                            //Constants.userName =mApp.loadUserInfo().get(1);//name
-                            //Constants.sex = mApp.loadUserInfo().get(2);//sex
+                            //储存
+                            if (cbRemember.isChecked()) {
+                                saveLoginInfo(edEmail.getText().toString(),edPassword.getText().toString());
+                            }
+                            saveUserInfo(id,level, name, sex, avatar);
                             LoginActivity.this.finish();
                             break;
                         case 2:

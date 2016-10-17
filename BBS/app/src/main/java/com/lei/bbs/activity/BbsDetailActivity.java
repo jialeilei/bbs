@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,7 +52,7 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
     public Handler detailActivityHandler = new Handler();
     //mainInfo
     private int uid,mid,mScore;
-    private String mName,mSex,mTitle,mContent,mTime;
+    private String mName,mSex,mTitle,mContent,mTime,mAvatar;
     private int answerModel = 0;//被回复的用户id，默认回复楼主
     private AnswerFeed answerFeedInfo;
     private TalkFeed talkFeedInfo;
@@ -67,6 +68,8 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
         initView();
     }
 
+
+
     private void initView(){
 
         etContent = (EditText) findViewById(R.id.etContent);
@@ -76,7 +79,7 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
         if (answerFeedList.size() > 0){
             answerFeedList.clear();
         }
-        answerFeedList.add(new AnswerFeed(0,uid, mName, Common.scoreToLevel(mScore), mSex, mTime, mTitle, mContent));
+        answerFeedList.add(new AnswerFeed(0,uid, mName, Common.scoreToLevel(mScore), mSex, mTime, mTitle, mContent,mAvatar));
         lvDetail = (ListView) findViewById(R.id.lvDetail);
         detailAdapter = new DetailAdapter(this, answerFeedList,mChildList);
         lvDetail.setAdapter(detailAdapter);
@@ -101,6 +104,28 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
         requestListViewData();
 
         adapterListener();//监听适配器
+
+        lvDetail.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                boolean result;
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
+                    MyLog.i(TAG,"not  scrolling ");
+                    result = false;
+                    detailAdapter.scrollingState(result);
+                    detailAdapter.notifyDataSetChanged();
+                }else {
+                    result = true;
+                    detailAdapter.scrollingState(result);
+                }
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
 
     }
 
@@ -148,6 +173,7 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
         mTime = bundle.getString("sendTime");
         mSex = bundle.getString("sex");
         mScore = bundle.getInt("score");
+        mAvatar = bundle.getString("avatar");
     }
 
     public void refreshListView(){
@@ -249,7 +275,7 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
         if (answerFeedList.size() > 0){
             answerFeedList.clear();
         }
-        answerFeedList.add(new AnswerFeed(0,uid,mName,Common.scoreToLevel(mScore),mSex,mTime,mTitle,mContent));
+        answerFeedList.add(new AnswerFeed(0,uid,mName,Common.scoreToLevel(mScore),mSex,mTime,mTitle,mContent,mAvatar));
         for (int i = 0; i < feeds.size(); i++) {
             answerFeedList.add(new AnswerFeed(
                     feeds.get(i).getAid(),
@@ -259,7 +285,8 @@ public class BbsDetailActivity extends BaseActivity implements View.OnClickListe
                     feeds.get(i).getSex(),
                     feeds.get(i).getSendTime(),
                     feeds.get(i).getTitle(),
-                    feeds.get(i).getContent()));
+                    feeds.get(i).getContent(),
+                    feeds.get(i).getAvatar()));
         }
 
         refreshListView();

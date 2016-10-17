@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import com.lei.bbs.R;
+import com.lei.bbs.constant.Constants;
 import com.lei.bbs.util.ImageLoader;
 import com.lei.bbs.util.MyLog;
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class ImageLoaderActivity extends AppCompatActivity implements AbsListVie
 
     private void setData() {
         String[] imageUrls = {
+                "http://192.168.0.130/bbsServer/image/head/20161003111901.png",
                 "http://b.hiphotos.baidu.com/zhidao/pic/item/a6efce1b9d16fdfafee0cfb5b68f8c5495ee7bd8.jpg",
                 "http://pic47.nipic.com/20140830/7487939_180041822000_2.jpg",
                 "http://pic41.nipic.com/20140518/4135003_102912523000_2.jpg",
@@ -166,7 +168,7 @@ public class ImageLoaderActivity extends AppCompatActivity implements AbsListVie
             ImageView imageView = viewHolder.imageView;
 
             final String tag = (String) imageView.getTag();
-            final String uri = (String) getItem(position);
+            final String uri = (String) getItem(position);//头像网址
 
             if (!uri.equals(tag)){
                 imageView.setImageResource(R.mipmap.head);

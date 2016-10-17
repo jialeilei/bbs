@@ -1,5 +1,7 @@
 package com.lei.bbs.bean;
 
+
+
 /**
  * Created by lei on 2016/9/5.
  */
@@ -22,12 +24,13 @@ public class BBS extends Entity{
 
 
 
-    public BBS(String name,String sendTime,int answerNumber,String title,String content ){
+    public BBS(String name,String sendTime,int answerNumber,String title,String content,String avatar ){
         this.name = name;
         this.sendTime = sendTime;
         this.answerNumber = answerNumber;
         this.title = title;
         this.content = content;
+        this.avatar = avatar;
     }
 
 
@@ -111,5 +114,7 @@ public class BBS extends Entity{
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+
 
 }

@@ -1,6 +1,7 @@
 package com.lei.bbs.bean;
 
 
+import com.lei.bbs.constant.Constants;
 
 /**
  * Created by lei on 2016/9/6.
@@ -22,7 +23,7 @@ public class AnswerFeed extends Entity{
     private String title;
 
 
-    public AnswerFeed(int aid,int uid,String name, int score, String sex, String sendTime, String title, String content){
+    public AnswerFeed(int aid,int uid,String name, int score, String sex, String sendTime, String title, String content,String avatar){
         this.aid = aid;
         this.name = name;
         this.score = score;
@@ -32,6 +33,7 @@ public class AnswerFeed extends Entity{
         this.sendTime = sendTime;
         this.title = title;
         this.content = content;
+        this.avatar = avatar;
     }
 
     public String getAvatar() {

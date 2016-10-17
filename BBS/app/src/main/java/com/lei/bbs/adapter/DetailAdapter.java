@@ -11,6 +11,9 @@ import android.widget.TextView;
 import com.lei.bbs.R;
 import com.lei.bbs.bean.AnswerFeed;
 import com.lei.bbs.bean.TalkFeed;
+import com.lei.bbs.constant.Constants;
+import com.lei.bbs.util.CircleImage;
+import com.lei.bbs.util.ImageLoader;
 import com.lei.bbs.util.ListLinearLayout;
 import com.lei.bbs.util.MyLog;
 import java.util.ArrayList;
@@ -24,6 +27,8 @@ public class DetailAdapter extends BaseObjectListAdapter{
 	private List<TalkFeed> mChildList2 = new ArrayList<TalkFeed>();
 	public static int mParentItem = -1;
 	public static boolean mbShowChild = false;
+	private ImageLoader mImageLoader;
+	private boolean mIsScrolling = false;
 
 
 	public DetailAdapter(Context context, List<AnswerFeed> bbsList,List<TalkFeed> childList){
@@ -31,7 +36,13 @@ public class DetailAdapter extends BaseObjectListAdapter{
 		this.bbsList=bbsList;
 		this.mChildList = childList;
 		//initData();
+		mImageLoader = ImageLoader.build(context);
 
+	}
+
+	public void scrollingState(boolean state){
+		mIsScrolling = state;
+		MyLog.i(TAG,"mIsScrolling result "+state);
 	}
 
 	@Override
@@ -41,8 +52,7 @@ public class DetailAdapter extends BaseObjectListAdapter{
 		View view;
 		final ViewHolder viewHolder;
 		if (convertView == null) {
-			view = mInflater.from(mContext).inflate(R.layout.item_detail_bbs, null);
-
+			view = mInflater.inflate(R.layout.item_detail_bbs, null);
 			viewHolder = new ViewHolder();
 			viewHolder.tvName = (TextView)view.findViewById(R.id.tvName);
 			viewHolder.tvLevel = (TextView) view.findViewById(R.id.tvLevel);
@@ -52,7 +62,7 @@ public class DetailAdapter extends BaseObjectListAdapter{
 			viewHolder.tvTitle = (TextView) view.findViewById(R.id.tvTitle);
 			viewHolder.tvContent = (TextView)view.findViewById(R.id.tvMainContent);
 			viewHolder.imgSex = (ImageView) view.findViewById(R.id.imgSex);
-			viewHolder.imageView = (ImageView)view.findViewById(R.id.imgHead);
+			viewHolder.imageView = (CircleImage)view.findViewById(R.id.imgHead);
 			viewHolder.llTalk = (LinearLayout) view.findViewById(R.id.llTalk);
 			viewHolder.imgBtnAnswer = (ImageButton) view.findViewById(R.id.imgBtnAnswer);
 			// 子View
@@ -67,6 +77,27 @@ public class DetailAdapter extends BaseObjectListAdapter{
 		viewHolder.tvLevel.setText("LV."+bbs.getScore());
 		viewHolder.tvSendTime.setText(bbs.getSendTime());
 		viewHolder.tvContent.setText(bbs.getContent());
+		//head
+		CircleImage circleImage = viewHolder.imageView;
+		String uri = Constants.base_url+bbs.getAvatar();
+		String tag = (String) circleImage.getTag();
+
+		MyLog.i(TAG,"uri "+bbs.getAvatar());
+		/*if (bbs.getAvatar() != null){*/
+			if (!uri.equals(tag)){
+				circleImage.setImageResource(R.mipmap.head);
+			}
+
+			if (!mIsScrolling){
+				circleImage.setTag(uri);
+				mImageLoader.bindBitmap(uri,circleImage,100,100);
+
+			}
+		/*}else {
+			circleImage.setImageResource(R.mipmap.head);
+		}*/
+
+
 
 		//是否显示标题、楼主
 		if (position <= 0){
@@ -144,22 +175,12 @@ public class DetailAdapter extends BaseObjectListAdapter{
 
 	private  class  ViewHolder{
 		TextView tvName,tvLevel,tvTopFloor,tvFloorNum,tvSendTime,tvTitle,tvContent;
-		ImageView imageView,imgSex;
+		ImageView imgSex;
+		CircleImage imageView;
 		ImageButton imgBtnAnswer;
 		LinearLayout llTalk;
 		ListLinearLayout listLinearLayout;
 	}
-
-	/*private OnAdapterRefreshListener adapterRefreshListener;
-
-	public interface OnAdapterRefreshListener{
-		void onRefresh();
-	}
-
-	public void setAdapterRefreshListener(OnAdapterRefreshListener m){
-		adapterRefreshListener = m;
-	}
-*/
 
 	private OnAnswerFeedListener mOnAnswerFeedListener;
 

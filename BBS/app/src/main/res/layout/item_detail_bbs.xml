@@ -22,7 +22,7 @@
                 android:orientation="horizontal">
             </LinearLayout>
 
-            <ImageView
+            <com.lei.bbs.util.CircleImage
                 android:id="@+id/imgHead"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
