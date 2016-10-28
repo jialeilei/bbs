@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
 import com.lei.bbs.R;
 import com.lei.bbs.bean.Response;
 import com.lei.bbs.constant.Constants;
@@ -24,7 +26,7 @@ import retrofit2.Callback;
 public class WriteFeedActivity extends BaseActivity implements View.OnClickListener{
 
     //view
-    private ImageButton imgBtnLeft;
+
     private EditText etTitle,etContent;
     private Button btnSure;
     //others
@@ -46,8 +48,11 @@ public class WriteFeedActivity extends BaseActivity implements View.OnClickListe
         toolBar.setBackgroundColor(getResources().getColor(R.color.title_blue));
         //title
         toolBar.getTvCenter().setText(R.string.write_feed);
+        /*TextView tvRight = toolBar.getTvRight();
+        tvRight.setVisibility(View.VISIBLE);
+        tvRight.setText(R.string.sure);*/
         toolBar.disableRight();
-        imgBtnLeft = toolBar.getImgLeft();
+        ImageButton imgBtnLeft = toolBar.getImgLeft();
         imgBtnLeft.setImageResource(R.mipmap.left);
         imgBtnLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +91,6 @@ public class WriteFeedActivity extends BaseActivity implements View.OnClickListe
 
     private void sendFeed(int userId,String title,String content){
         RetrofitService service = HttpHelper.createHubService(Constants.base_url);
-
         Call<Response> write = service.postMainFeed(userId,title,content);
         write.enqueue(new Callback<Response>() {
             @Override

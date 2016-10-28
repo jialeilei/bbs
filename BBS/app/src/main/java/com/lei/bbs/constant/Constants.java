@@ -6,7 +6,7 @@ package com.lei.bbs.constant;
 
 public class Constants {
 
-    public static String base_url="http://192.168.0.130/bbsServer/";
+    public static String base_url="http://192.168.0.132/bbsServer/";
 
     public static boolean onLine = false;
 

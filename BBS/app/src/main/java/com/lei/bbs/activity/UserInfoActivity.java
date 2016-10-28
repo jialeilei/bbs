@@ -22,9 +22,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.lei.bbs.R;
 import com.lei.bbs.constant.Constants;
+import com.lei.bbs.imageSelector.SelectorActivity;
 import com.lei.bbs.retrofit.RetrofitUtil;
 import com.lei.bbs.util.Common;
-import com.lei.bbs.util.ImageLoader;
+import com.lei.bbs.util.imageLoader.MagicImageLoader;
 import com.lei.bbs.util.MyLog;
 import com.lei.bbs.util.MyToolBar;
 import java.io.File;
@@ -32,7 +33,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Observable;
 
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener{
@@ -43,14 +43,14 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private ImageView imgHead,imgTest;
     private TextView tvSex,tvLevel,tvName;
     private RetrofitUtil retrofitUtil = new RetrofitUtil();
-    private ImageLoader mImageLoader;
+    private MagicImageLoader mMagicImageLoader;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
-        mImageLoader = ImageLoader.build(this);
+        mMagicImageLoader = MagicImageLoader.build(this);
         setToolBar();
         initView();
     }
@@ -79,7 +79,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 chooseHeadDialog();
                 break;
             case R.id.rlSex:
-                Intent intent = new Intent(this,ImageLoaderActivity.class);
+                /*Intent intent = new Intent(this,ImageLoaderActivity.class);
+                startActivity(intent);*/
+                Intent intent = new Intent(this,SelectorActivity.class);
                 startActivity(intent);
                 break;
 /*
@@ -123,7 +125,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         ByteArrayInputStream byteArrayInputStream=new ByteArrayInputStream(byteArray);
         //第三步:利用ByteArrayInputStream生成Bitmap
         Bitmap bitmap=BitmapFactory.decodeStream(byteArrayInputStream);*/
-        return Common.stringToBitMap(imageString);
+        return Common.stringToBitmap(imageString);
     }
 
     private void showUserInfo(){
@@ -135,7 +137,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         tvSex.setText(Constants.sex);
 
         if (!Constants.avatar.equals("")){
-            mImageLoader.bindBitmap(Constants.base_url+Constants.avatar,imgHead,150,150);
+            mMagicImageLoader.bindBitmap(Constants.base_url+Constants.avatar,imgHead,150,150);
         }else {
             imgHead.setImageResource(R.mipmap.head);
         }

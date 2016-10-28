@@ -31,7 +31,8 @@
         <activity android:name=".activity.BaseActivity" />
         <activity android:name=".activity.WriteFeedActivity" />
         <activity android:name=".activity.UserInfoActivity" />
-        <activity android:name=".activity.ImageLoaderActivity"></activity>
+        <activity android:name=".activity.ImageLoaderActivity" />
+        <activity android:name=".imageSelector.SelectorActivity"></activity>
     </application>
 
 </manifest>

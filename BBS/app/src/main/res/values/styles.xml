@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
     <!--dialog-->
     <style name="transparentFrameWindowStyle" parent="@android:style/Theme.Dialog">
        <!-- <item name="android:windowBackground">@drawable/selector_dialog</item>-->
@@ -22,5 +21,10 @@
         <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>
     </style>
 
+    <!-- popup window animation -->
+    <style name="dir_popup_window">
+        <item name="android:windowEnterAnimation">@anim/popup_window_slide_up</item>
+        <item name="android:windowExitAnimation">@anim/popup_window_slide_down</item>
+    </style>
 
 </resources>

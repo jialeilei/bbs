@@ -13,7 +13,7 @@ import com.lei.bbs.bean.AnswerFeed;
 import com.lei.bbs.bean.TalkFeed;
 import com.lei.bbs.constant.Constants;
 import com.lei.bbs.util.CircleImage;
-import com.lei.bbs.util.ImageLoader;
+import com.lei.bbs.util.imageLoader.MagicImageLoader;
 import com.lei.bbs.util.ListLinearLayout;
 import com.lei.bbs.util.MyLog;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class DetailAdapter extends BaseObjectListAdapter{
 	private List<TalkFeed> mChildList2 = new ArrayList<TalkFeed>();
 	public static int mParentItem = -1;
 	public static boolean mbShowChild = false;
-	private ImageLoader mImageLoader;
+	private MagicImageLoader mMagicImageLoader;
 	private boolean mIsScrolling = false;
 
 
@@ -36,7 +36,7 @@ public class DetailAdapter extends BaseObjectListAdapter{
 		this.bbsList=bbsList;
 		this.mChildList = childList;
 		//initData();
-		mImageLoader = ImageLoader.build(context);
+		mMagicImageLoader = MagicImageLoader.build(context);
 
 	}
 
@@ -90,7 +90,7 @@ public class DetailAdapter extends BaseObjectListAdapter{
 
 			if (!mIsScrolling){
 				circleImage.setTag(uri);
-				mImageLoader.bindBitmap(uri,circleImage,100,100);
+				mMagicImageLoader.bindBitmap(uri,circleImage,100,100);
 
 			}
 		/*}else {

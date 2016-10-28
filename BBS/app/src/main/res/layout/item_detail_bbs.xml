@@ -160,23 +160,6 @@
             android:layout_marginRight="20dp"
             android:background="@color/gray_divider"/>
 
-      <!--  <com.lei.bbs.util.ChildListView
-            android:id="@+id/lvTalk"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:divider="@null">
-        </com.lei.bbs.util.ChildListView>-->
-
-      <!--  <ListView
-            android:id="@+id/lv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:divider="@null"></ListView>
--->
         <com.lei.bbs.util.ListLinearLayout
             android:id="@+id/listLinearLayout"
             android:layout_width="match_parent"

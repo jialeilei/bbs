@@ -71,7 +71,7 @@ public class Common {
      * @param string
      * @return
      */
-    public static Bitmap stringToBitMap(String string){
+    public static Bitmap stringToBitmap(String string){
         byte[] byteArray=Base64.decode(string, Base64.DEFAULT);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArray);
         //第三步:利用ByteArrayInputStream生成Bitmap

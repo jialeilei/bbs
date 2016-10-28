@@ -39,19 +39,29 @@
             android:hint="@string/remind_content"
             android:background="@drawable/et_border"
             android:singleLine="false"/>
+        <LinearLayout
+            android:id="@+id/llImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/etContent"
+            android:orientation="horizontal">
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                style="?attr/toolbarNavigationButtonStyle"
+                android:src="@mipmap/head"/>
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnSure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etContent"
+            android:layout_below="@+id/llImage"
             android:background="@drawable/btn_selector"
             android:layout_marginTop="30dp"
             android:textColor="@color/white"
             android:text="@string/sure"/>
     </RelativeLayout>
-
-
-
 
 </LinearLayout>

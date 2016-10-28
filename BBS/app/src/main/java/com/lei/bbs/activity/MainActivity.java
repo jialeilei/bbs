@@ -27,8 +27,7 @@ import com.lei.bbs.retrofit.HttpHelper;
 import com.lei.bbs.retrofit.RetrofitService;
 import com.lei.bbs.util.CircleImage;
 import com.lei.bbs.util.Common;
-import com.lei.bbs.util.ImageLoader;
-import com.lei.bbs.util.MyToast;
+import com.lei.bbs.util.imageLoader.MagicImageLoader;
 import com.lei.bbs.util.MyToolBar;
 import com.lei.bbs.util.MyLog;
 import java.util.ArrayList;
@@ -60,13 +59,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
     private String TAG="MainActivity";
     private android.os.Handler handler = new android.os.Handler();
     private boolean isShowing = false;
-    private ImageLoader mImageLoader;
+    private MagicImageLoader mMagicImageLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mImageLoader = ImageLoader.build(this);
+        mMagicImageLoader = MagicImageLoader.build(this);
         setToolBar();
         initView();
     }
@@ -387,7 +386,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener ,
         }
         if (!Constants.avatar.equals("")){
             CircleImage circleImage = imgHead;
-            mImageLoader.bindBitmap(Constants.base_url+Constants.avatar,circleImage,150,150);
+            mMagicImageLoader.bindBitmap(Constants.base_url+Constants.avatar,circleImage,150,150);
         }
         MyLog.i(TAG,"name "+Constants.userName+" sex "+Constants.sex+" avatar "+Constants.avatar);
         isShowing = true;

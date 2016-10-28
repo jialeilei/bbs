@@ -21,7 +21,6 @@ public class BbsApplication extends Application{
     private String ID = "userInfo";
     private String SEX = "userInfo";
 
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -87,10 +86,5 @@ public class BbsApplication extends Application{
         return list;
 
     }
-
-
-
-
-
 
 }

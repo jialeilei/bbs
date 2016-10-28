@@ -12,8 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import com.lei.bbs.R;
-import com.lei.bbs.constant.Constants;
-import com.lei.bbs.util.ImageLoader;
+import com.lei.bbs.util.imageLoader.MagicImageLoader;
 import com.lei.bbs.util.MyLog;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class ImageLoaderActivity extends AppCompatActivity implements AbsListVie
     ListView gridView;
     ImageAdapter imageAdapter;
     private List<String> list = new ArrayList<String>();
-    private ImageLoader mImageLoader;
+    private MagicImageLoader mMagicImageLoader;
     private boolean mIsGridViewIdle = true;
     private int mImageWidth = 0;
     private boolean mIsWifi = false;
@@ -37,7 +36,7 @@ public class ImageLoaderActivity extends AppCompatActivity implements AbsListVie
         setContentView(R.layout.activity_image_loader);
         setData();
         initView();
-        mImageLoader = ImageLoader.build(ImageLoaderActivity.this);
+        mMagicImageLoader = MagicImageLoader.build(ImageLoaderActivity.this);
     }
 
     private void initView(){
@@ -159,7 +158,7 @@ public class ImageLoaderActivity extends AppCompatActivity implements AbsListVie
                 view = LayoutInflater.from(mContext).inflate(R.layout.item_grid_image, null);
 
                 viewHolder = new ViewHolder();
-                viewHolder.imageView = (ImageView)view.findViewById(R.id.img);
+                viewHolder.imageView = (ImageView)view.findViewById(R.id.imgView);
                 view.setTag(viewHolder);//存储viewHolder对象
             }else {
                 view = convertView;
@@ -176,7 +175,7 @@ public class ImageLoaderActivity extends AppCompatActivity implements AbsListVie
             if (mIsGridViewIdle){
                 // && mCanGetBitmapFromNetWork
                 imageView.setTag(uri);
-                mImageLoader.bindBitmap(uri,imageView,mImageWidth,mImageHeight);
+                mMagicImageLoader.bindBitmap(uri,imageView,mImageWidth,mImageHeight);
             }
 
             return view;

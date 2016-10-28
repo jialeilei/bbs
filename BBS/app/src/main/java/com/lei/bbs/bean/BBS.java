@@ -1,6 +1,7 @@
 package com.lei.bbs.bean;
 
 
+import java.util.ArrayList;
 
 /**
  * Created by lei on 2016/9/5.
@@ -18,21 +19,19 @@ public class BBS extends Entity{
     private String sendTime;
     private int answerNumber;
     // empty now
-
     private String avatar;
 
+    private ArrayList<ContentImage> imageList;
 
 
-
-    public BBS(String name,String sendTime,int answerNumber,String title,String content,String avatar ){
+   /* public BBS(String name,String sendTime,int answerNumber,String title,String content,String avatar){
         this.name = name;
         this.sendTime = sendTime;
         this.answerNumber = answerNumber;
         this.title = title;
         this.content = content;
         this.avatar = avatar;
-    }
-
+    }*/
 
     public int getMid() {
         return mid;
@@ -115,6 +114,11 @@ public class BBS extends Entity{
         this.userId = userId;
     }
 
+    public ArrayList<ContentImage> getImageList() {
+        return imageList;
+    }
 
-
+    public void setImageList(ArrayList<ContentImage> imageList) {
+        this.imageList = imageList;
+    }
 }
